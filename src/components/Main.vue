@@ -2,19 +2,19 @@
   <div class="layout">
     <Layout :style="{minHeight: '100vh'}">
       <Sider collapsible :collapsed-width="78" v-model="isCollapsed">
-        <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
-          <MenuItem name="1-1">
-            <Icon type="ios-navigate"></Icon>
-            <span>Option 1</span>
-          </MenuItem>
-          <MenuItem name="1-2">
-            <Icon type="search"></Icon>
-            <span>Option 2</span>
-          </MenuItem>
-          <MenuItem name="1-3">
-            <Icon type="settings"></Icon>
-            <span>Option 3</span>
-          </MenuItem>
+        <Menu  :active-name="1" theme="dark" width="auto" :accordion="true" :class="menuitemClasses">
+
+          <div v-for="(item,index) in menuList">
+            <Submenu name="index">
+              <template slot="title">
+                <Icon type="ios-filing" />
+                {{item.name}}
+              </template>
+              <MenuItem name="indexc" :to="child.path" v-for="(child,indexc) in item.children">
+                  {{child.name}}
+              </MenuItem>
+            </Submenu>
+          </div>
         </Menu>
       </Sider>
       <Layout>
@@ -27,8 +27,8 @@
           </Breadcrumb>
           <Card>
             <div style="height: 600px">
-              Content
-              <Button type="primary" @click="getNewsList">点击</Button>
+              <router-view/>
+              <!--<Button type="primary" @click="getNewsList">点击</Button>-->
             </div>
           </Card>
         </Content>
@@ -37,11 +37,14 @@
   </div>
 </template>
 <script>
+  import menuList from '@/router/menu'
   export default {
     data () {
       return {
-        isCollapsed: false
-      };
+        isCollapsed: false,
+        // 导航菜单
+        menuList: menuList,
+      }
     },
     computed: {
       menuitemClasses: function () {
@@ -51,15 +54,12 @@
         ]
       }
     },
+    created () {
+        console.log('created')
+        console.log(menuList)
+    },
     methods: {
-      getNewsList(){
-        this.axios.get('/leave-api/get/1').then((response)=>{
-          console.log('you are right!')
-//          this.newsList=response.data.data;
-        }).catch((response)=>{
-          console.log(response);
-        })
-      }
+
     }
   }
 </script>

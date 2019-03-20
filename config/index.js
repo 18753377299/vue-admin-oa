@@ -12,18 +12,25 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/leave-api': {
-        target: 'http://192.168.2.102:18020',
+        // target: 'http://192.168.2.102:18020',
+        target: 'http://11.205.243.197:18020',
         changeOrigin: true,
         // pathRewrite: {
         //   '^/leave-api':''
         // }
+      },
+      '/riskinfo-api': {
+        // target: 'http://192.168.2.102:18020',
+        target: 'http://11.205.243.197:18020',
+        changeOrigin: true,
       }
     },
 
     // Various Dev Server settings
     // host: 'localhost', // can be overwritten by process.env.HOST
-    host: '192.168.2.102',
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    // host: '192.168.2.102',
+    host: '11.205.243.197',
+    port: 8018, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: true,

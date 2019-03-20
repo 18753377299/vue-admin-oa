@@ -24,44 +24,6 @@ const menu = [
         fixed: false
       },
       {
-        path: '/list',
-        name: 'list',
-        level: 1,
-        children: [],
-        fixed: false
-      },
-      {
-        path: '/userInfo',
-        name: 'userInfo',
-        icon: 'icon-addpeople_fill',
-        children: [],
-        fixed: false,
-        level: 1
-      },
-      {
-        level: 1,
-        path: '/userList',
-        children: [],
-        fixed: false,
-        name: 'userList'
-      },
-      {
-        level: 1,
-        path: '/table',
-        name: 'table',
-        children: [],
-        fixed: false,
-        hidden: true
-      },
-      {
-        level: 1,
-        path: '/icon',
-        name: 'icon',
-        children: [],
-        fixed: false,
-        icon: 'icon-emoji_fill'
-      },
-      {
         level: 1,
         path: '/filter',
         name: 'filter',
@@ -73,90 +35,28 @@ const menu = [
   },
   {
     path: '/',
-    name: '页面',
+    name: '风控图书馆',
+    icon: 'icon-createtask_fill',
     level: 0,
-    icon: 'icon-manage_fill',
     fixed: false,
     children: [
       {
+        path: '/riskinfo',
+        name: 'HelloWorld',
+        icon: 'icon-dynamic_fill',
         level: 1,
-        path: '/error404',
         children: [],
-        fixed: false,
-        name: '404'
+        fixed: false
       },
       {
         level: 1,
-        path: '/notfound',
+        path: '/filter',
+        name: 'filter',
         children: [],
         fixed: false,
-        name: 'Not found'
-      },
-      {
-        level: 1,
-        path: '/login',
-        children: [],
-        fixed: false,
-        name: '登录'
-      },
-      {
-        level: 1,
-        path: '/register',
-        children: [],
-        fixed: false,
-        name: '注册'
+        icon: 'icon-emoji_fill'
       }
     ]
-  },
-  {
-    path: '/',
-    name: '管理',
-    level: 0,
-    icon: 'icon-manage_fill',
-    fixed: false,
-    children: [
-      {
-        level: 1,
-        path: '/setMenu',
-        children: [],
-        fixed: false,
-        name: 'setMenu'
-      },
-      {
-        level: 1,
-        path: '/setMenu2',
-        children: [],
-        fixed: false,
-        name: 'setMenu2'
-      },
-      {
-        level: 1,
-        path: '/notFound',
-        children: [],
-        fixed: false,
-        name: 'notFound'
-      }
-    ]
-  },
-  {
-    path: '/index',
-    name: '123',
-    icon: 'icon-wujiaoxing',
-    // hidden: true,
-    level: 0,
-    sort: 1,
-    children: [],
-    fixed: false
-  },
-  {
-    path: '/index',
-    name: '123',
-    icon: 'icon-wujiaoxing',
-    // hidden: true,
-    level: 0,
-    sort: 1,
-    children: [],
-    fixed: false
   }
 
 ]

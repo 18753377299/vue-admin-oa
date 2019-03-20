@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import HelloWorld from '@/components/HelloWorld'
+import HelloWorld from '@/components/HelloWorld'
 import Home from '@/components/Main.vue'
-// import Home from '@/components/layout/Home.vue'
+import LeaveSearch from '@/components/leave/LeaveSearch.vue'
 
 
 Vue.use(Router)
@@ -16,8 +16,8 @@ export default new Router({
       children: [
         {
           path: '/riskinfo',
-          name: 'Main',
-          component: Home,
+          name: 'LeaveSearch',
+          component: LeaveSearch,
           icon: 'icon-wujiaoxing',
           level: 1,
           meta: {
