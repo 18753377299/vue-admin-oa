@@ -49,6 +49,14 @@ const menu = [
         fixed: false
       },
       {
+        path: '/RiskInfoClaimQuery',
+        name: '典型案例分析',
+        icon: 'icon-dynamic_fill',
+        level: 1,
+        children: [],
+        fixed: false
+      },
+      {
         level: 1,
         path: '/filter',
         name: 'filter',
