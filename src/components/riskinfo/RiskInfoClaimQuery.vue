@@ -137,7 +137,20 @@
           claimReasons:[],
           senders:[]
         },
-        riskNameList:[],
+        riskNameList:[
+          {
+            value:'Q',
+            label: '财产一切险'
+          },
+          {
+            value:'G',
+            label: '工程机械设备保险'
+          },
+          {
+            value:'J',
+            label: '家庭财产综合保险'
+          }
+        ],
         professionList:[],
         claimReasonList:[],
         sendersList:[],
