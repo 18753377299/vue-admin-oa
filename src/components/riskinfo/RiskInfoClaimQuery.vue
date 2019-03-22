@@ -47,23 +47,24 @@
               </Col>
               <Col span="12">
               <FormItem label="查勘行业：" prop="professions">
-                <Select v-model="riskInfoClaimVo.professions" multiple  filterable :loading="loadingP">
+                <Select v-model="riskInfoClaimVo.professions" multiple >
+                  <!--filterable :loading="loadingP"-->
                   <Option v-for="item in professionList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
               </FormItem>
               </Col>
               <Col span='12'>
               <FormItem label="出险原因：" prop="claimReasons">
-                <Select v-model="riskInfoClaimVo.claimReasons"  multiple filterable
-                        :loading="loading" @click="remoteMethodSelect('claimReason')">
+                <Select v-model="riskInfoClaimVo.claimReasons"  multiple >
+                  <!--filterable :loading="loading" @click="remoteMethodSelect('claimReason')"-->
                   <Option v-for="item in claimReasonList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
               </FormItem>
               </Col>
               <Col span='12'>
               <FormItem label="案件来源：" prop="senders">
-                <Select v-model="riskInfoClaimVo.senders"  multiple
-                        filterable > <!--@click="remoteMethodSelect('sender')"-->
+                <Select v-model="riskInfoClaimVo.senders"  multiple filterable >
+                  <!--@click="remoteMethodSelect('sender')"-->
                   <!--:loading="loadingS"-->
                   <Option v-for="item in sendersList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
@@ -100,9 +101,10 @@
     <!--</div>-->
     <div class="result-wrapper">
     <div >
-      <Table stripe size="small" :loading="loading" :columns='riskInfoClaimColumns' :data='riskInfoClaimList' ref="selection"></Table>
+      <Table stripe size="small"  :columns='riskInfoClaimColumns' :data='riskInfoClaimList' ref="selection"></Table>
+      <!--:loading="loading"-->
       <div :style="{textAlign:center}" class="btnbox">
-        <!--<Page :total='mm.totalCount' :page-size="mm.pageSize" :current="mm.pageNo" show-total class='paging' @on-change='changepage' :page-size-opts="[5,15,50]" show-elevator showSizer @on-page-size-change="changepagesize"></Page>-->
+        <Page :total='totalCount' :page-size="pageSize" :current="pageNo" show-total class='paging' @on-change='changepage' :page-size-opts="[5,15,50]" show-elevator showSizer @on-page-size-change="changepagesize"></Page>
       </div>
     </div>
     </div>
@@ -123,6 +125,10 @@
       const validateClaimName = (rule, value, callback) => {
       }
       return {
+        totalCount: '',
+        pageNo: 1,
+        pageSize: 5,
+        readFlag: false,
         showicon: 'fa fa-angle-double-up fa-2x',
         center: "center",
         showFlag: false,
@@ -157,22 +163,142 @@
         // table 表的列名称
         riskInfoClaimColumns:[
           {
-            type: 'selection',
-            minWidth: 40,
+            title: '案例名称',
+            key: 'claimName',
+            minWidth: 280,
             align: 'center'
           },
           {
-            title: '风险编号',
-            key: 'riskFileNo',
-            align: 'center',
-            minWidth: 220
+            title: '产品名称',
+            key: 'riskCname',
+            minWidth: 110,
+            align: 'center'
           },
           {
-            title: '被保险人',
-            key: 'insuredName',
-            minWidth: 300,
+            title: '出险年度',
+            key: 'claimYear',
+            sortable: 'custom',
+            minWidth: 110,
+            align: 'center'
+          },
+          {
+            title: '查勘行业',
+            key: 'profession',
+            minWidth: 110,
+            align: 'center'
+          },
+          {
+            title: '查勘险类',
+            key: 'riskName',
+            minWidth: 110,
+            sortable: 'custom',
+            align: 'center'
+          },
+          {
+            title: '案件来源',
+            key: 'sender',
+            minWidth: 150,
+            align: 'center'
+          },
+          {
+            title: '赔款金额',
+            key: 'claimAmount',
+            minWidth: 150,
+            sortable: 'custom',
+            align: 'center',
+            render: (h, params) => {
+              return h('div', this.common.toThousands((parseFloat(params.row.claimAmount)).toFixed(2)))
+            }
+          },
+          {
+            title: '出险原因',
+            key: 'claimReason',
+            minWidth: 200,
             align: 'center'
           }
+//          {
+//            title: '操作',
+//            key: 'action',
+//            width: 100,
+//            align: 'center',
+//            render: (h, params) => {
+//              return h('div', [
+//                h('Poptip', {
+//                  props: {
+//                    confirm: true,
+//                    placement: 'top-end',
+//                    title: '您确认注销这条内容吗？'
+//                  },
+//                  on: {
+//                    'on-ok': () => {
+//                      this.remove(params)
+//                    },
+//                    'on-cancel': () => {}
+//                  }
+//                }, [
+//                  h('Button', {
+//                    props: {
+//                      type: 'error',
+//                      size: 'small',
+//                      icon: 'close'
+//                    },
+//                    style: {
+//                      marginRight: '5px',
+//                      display: this.hideTwoFlage
+//                    }
+//                  })
+//                ]),
+//                h('Poptip', {
+//                  props: {
+//                    confirm: true,
+//                    title: '您确认修改这条内容吗？'
+//                  },
+//                  on: {
+//                    'on-ok': () => {
+//                      this.edit(params.index)
+//                    },
+//                    'on-cancel': () => {}
+//                  }
+//                }, [
+//                  h('Button', {
+//                    props: {
+//                      type: 'primary',
+//                      size: 'small',
+//                      icon: 'edit'
+//                    },
+//                    style: {
+//                      marginRight: '5px',
+//                      display: this.hideOneFlage
+//                    }
+//                  })
+//                ]),
+//                h('Poptip', {
+//                  props: {
+//                    confirm: true,
+//                    title: '您确认审核通过这条内容吗？'
+//                  },
+//                  on: {
+//                    'on-ok': () => {
+//                      this.examine(params.index)
+//                    },
+//                    'on-cancel': () => {}
+//                  }
+//                }, [
+//                  h('Button', {
+//                    props: {
+//                      type: 'primary',
+//                      size: 'small',
+//                      icon: 'checkmark'
+//                    },
+//                    style: {
+//                      marginRight: '5px',
+//                      display: this.hideTwoFlage
+//                    }
+//                  })
+//                ])
+//              ])
+//            }
+//          }
         ],
         // table表的列数据
         riskInfoClaimList: [],
@@ -188,19 +314,30 @@
 
     },
     methods:{
+      changepage(index){
+        this.pageNo = index
+        this.query();
+      },
+      changepagesize(size){
+        this.pageSize = size
+        this.query();
+      },
       query(){
         this.$refs['riskInfoClaimVo'].validate((valid) => {
           if(valid){
-            this.axios.post('/riskinfo-api/queryRiskInfoClaim',this.riskInfoClaimVo).then((response)=>{
+            this.axios.post('/riskinfo-api/queryRiskInfoClaim',this._data).then((response)=>{
               console.log('you are right!')
-//          this.newsList=response.data.data;
+              this.showFlag = true
+              this.riskInfoClaimList=response.data.result;
+              this.totalCount = response.data.totalCount
             }).catch((response)=>{
               console.log(response)
             })
           }
         })
-
-      }
+      },
+      closeDate(){},
+      checkDate(){}
     }
   }
 </script>

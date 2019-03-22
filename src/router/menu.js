@@ -65,6 +65,23 @@ const menu = [
         icon: 'icon-emoji_fill'
       }
     ]
+  },
+  {
+    path: '/',
+    name: '风控巡检',
+    icon: 'icon-createtask_fill',
+    level: 0,
+    fixed: false,
+    children: [
+      {
+        path: '/RiskCheckMainQuery',
+        name: '风控巡检查询',
+        icon: 'icon-dynamic_fill',
+        level: 1,
+        children: [],
+        fixed: false
+      }
+    ]
   }
 
 ]
