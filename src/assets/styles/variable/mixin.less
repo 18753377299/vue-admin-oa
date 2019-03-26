@@ -1,0 +1,51 @@
+// 所有皮肤颜色
+@skin-colors            : #3bafdA, #D22F26, #76C10F, #8C198E,#fe8d00,#FFCC33,#66CCCC,#FF99CC;
+
+// red-skin
+@red-color-base        : #ce0f25;
+@red-color-hover       : #fc7f8e;
+@red-color-active      : #db2a3e;
+@red-color-selected    : #F4DFC2;
+
+// orange-skin
+@orange-color-base      : #d5a523;
+@orange-color-hover      :  #fddb80;
+@orange-color-active      : #e7b735;
+@orange-color-selected    : #FF9966;
+
+// yellow-skin
+@yellow-color-base      : #e1890d;
+@yellow-color-hover      : #ffbd4e;
+@yellow-color-active      : #eca515;
+@yellow-color-selected    : #FFFF99;
+
+// green-skin
+@green-color-base      : #509739;
+@green-color-hover      :  #8acf74;
+@green-color-active      : #5aa742;
+@green-color-selected    : #DAECA2;
+
+// blue-skin
+@blue-color-active           : shade(@blue-color-base, 5%);
+@blue-color-complement  : spin(saturate(@blue-color-base, 0%), 180);
+@blue-color-hover            : tint(@blue-color-base, 20%);
+@blue-color-base        : extract(@skin-colors, 1);
+@blue-color-selected         : fade(@blue-color-base, 90%);
+
+//cyan-skin
+@cyan-color-base      : #7467b7;
+@cyan-color-hover      :  #b6aaf3;
+@cyan-color-active      : #8475d1;
+@cyan-color-selected    : #CCFFFF;
+
+// purple-skin
+@purple-color-base     : #9861b4;
+@purple-color-hover     : #cb9be4;
+@purple-color-active      : #a871c5;
+@purple-color-selected    : #c892b6;
+
+//pink-skin
+@pink-color-base        : #f77878;
+@pink-color-hover       : #ffb1b1;
+@pink-color-active      : #fc8a8a;
+@pink-color-selected    : #ffefe4;

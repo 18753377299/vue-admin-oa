@@ -1,0 +1,176 @@
+@import '../variable/mixin.less';
+// 红色皮肤
+
+// 导航菜单的样式
+.cyan-skin{
+  @primary-color       : @cyan-color-base;
+  @primary-color-hover : @cyan-color-hover;
+  @primary-color-active: @cyan-color-active;
+  @primary-color-selected :@cyan-color-selected;
+  .ivu-spin-dot{
+    background-color: @primary-color;
+  }
+  /*:focus{
+    outline-color: @primary-color;
+    box-shadow: 0 0 2px 2px @primary-color-selected;
+  }*/
+  .userBox a, .skinBox a{
+    color: @primary-color;
+  }
+  .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab-active{
+    color: @primary-color;
+  }
+  .ivu-tabs-nav .ivu-tabs-tab:hover{
+    color: @primary-color;
+  }
+  .ivu-page-item:hover, .ivu-page-prev:hover, .ivu-page-next:hover{
+    a{
+      color: @primary-color;
+    }
+    border-color: @primary-color;
+  }
+  .ivu-select-visible .ivu-select-selection{
+    box-shadow: @primary-color-selected 0 0 0 2px;
+    border-color: @primary-color;
+  }
+  .ivu-select-selection{
+    &:hover{
+      border-color: @primary-color;
+    }
+    &:focus{
+      border-color: @primary-color;
+      outline-color: @primary-color;
+    }
+  }
+  .ivu-select-selected-value:focus{
+    outline-color: @primary-color;
+  }
+  .ivu-select-item-selected, .ivu-select-item-selected:hover{
+    background-color: @primary-color;
+  }
+  .ivu-input{
+    &:focus{
+      border-color: @primary-color;
+      outline: 0;
+      box-shadow: 0 0 0 2px @primary-color-selected;
+    }
+    &:hover{
+      border-color: @primary-color;
+    }
+  }
+  .ivu-checkbox-checked .ivu-checkbox-inner{
+    border-color: @primary-color;
+    background-color: @primary-color;
+  }
+  .ivu-btn-primary{
+    background-color: @primary-color;
+    border-color: @primary-color;
+  }
+  .ivu-page-item-active{
+    background-color: @primary-color;
+    border-color: @primary-color;
+  }
+  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):hover, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu):hover{
+    background-color: @primary-color-hover;
+  }
+  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu), .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu){
+    color: #ffffff;
+    border-right: 2px solid @primary-color-hover;
+  }
+  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover{
+    color: #ffffff;
+    border-right: 2px solid @primary-color-active;
+    background: @primary-color-hover!important;
+  }
+  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item:hover, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title:hover{
+    background: transparent!important;
+    font-size: 16px;
+  }
+  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened{
+    background: @primary-color-active;
+  }
+  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-title{
+    background: @primary-color-active;
+  }
+  .login-modal {
+    .ivu-modal-content{
+      background-color: rgba(255,255,255,1)!important;
+    }
+  }
+  .ivu-table-header{
+    background: #f5f7f9
+  }
+  .side-wrapper{
+    background-color: @primary-color;
+    .logo-box{
+      background-color: #ffffff;
+    }
+  }
+  .ivu-btn-group:not(.ivu-btn-group-vertical) .ivu-btn-primary:not(:first-child):not(:last-child){
+    border-right-color: @primary-color-active;   //按钮间隔颜色
+    border-left-color: @primary-color-active;
+  }
+  .ivu-btn-group:not(.ivu-btn-group-vertical) .ivu-btn-primary:last-child:not(:first-child), .ivu-btn-group:not(.ivu-btn-group-vertical) .ivu-btn-primary + .ivu-btn{
+    border-left-color: @primary-color-active;
+  }
+  .ivu-btn-group:not(.ivu-btn-group-vertical) .ivu-btn-primary:first-child:not(:last-child){
+    border-right-color: @primary-color-active;
+  }
+  // 导航菜单颜色
+  /*********pdf插件**********/
+  #toolbarContainer{
+    position: relative;
+    height: 32px;
+    background-color: @primary-color; /* fallback */
+    background-image: linear-gradient(hsla(0,0%,100%,.99), hsla(0,0%,99%,.95));
+  }
+  /*********pdf插件**********/
+  /**********隐藏按钮**********/
+  .iconBox{
+    i{
+      color: @primary-color;
+    }
+  }
+  /**********隐藏按钮**********/
+  .mask-layer-container-operate{
+    .ivu-btn-primary{
+      background-color: @primary-color;
+      border-color: @primary-color;
+    }
+  }
+  .login{
+    .ivu-input:focus{
+      border-color: #57a3f3;
+      outline: 0;
+      box-shadow: 0 0 0 2px rgba(45, 140, 240, 0.2);
+    }
+    .ivu-input:hover{
+      border-color: #57a3f3;
+    }
+    .ivu-form-item-error .ivu-input:focus {
+      border-color: #ff3300;
+      outline: 0;
+      box-shadow: 0 0 0 2px rgba(255, 51, 0, 0.2);
+    }
+    .ivu-form-item-error .ivu-input:hover{
+      border-color: #ff3300;
+    }
+  }
+  /*******风控报告高亮字体********/
+  .highLight{
+    color: @primary-color;
+    font-size: 18px;
+    margin: 0 3px;
+    vertical-align: middle;
+  }
+  .ivu-tabs-nav .ivu-tabs-tab-active{
+    color: @primary-color;
+  }
+  .ivu-tabs-ink-bar{
+    background-color: @primary-color;
+  }
+  .cameraicon{
+    color: @primary-color;
+  }
+  /*******风控报告高亮字体********/
+}

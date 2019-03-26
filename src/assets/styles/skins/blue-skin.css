@@ -1,0 +1,35 @@
+.blue-skin {
+  /**********隐藏按钮**********/
+  /**********隐藏按钮**********/
+}
+.blue-skin .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active,
+.blue-skin .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover {
+  color: #3399ff;
+  border-right: 2px solid #3399ff;
+  background: #023768!important;
+}
+.blue-skin .ivu-menu-dark.ivu-menu-vertical .ivu-menu-item:hover,
+.blue-skin .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title:hover {
+  background: #023768!important;
+}
+.blue-skin .ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened {
+  background: #011f3b;
+}
+.blue-skin .ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-title {
+  background: #01407a;
+}
+.blue-skin .login-modal .ivu-modal-content {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+.blue-skin .ivu-table-header {
+  background: #f5f7f9;
+}
+.blue-skin .side-wrapper {
+  background-color: #001529;
+}
+.blue-skin .side-wrapper .logo-box {
+  background-color: #ffffff;
+}
+.blue-skin .iconBox i {
+  color: #3399ff;
+}

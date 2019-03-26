@@ -22,6 +22,11 @@ module.exports = {
         // target: 'http://192.168.2.102:18020',
         target: 'http://11.205.243.197:18020',
         changeOrigin: true,
+      },
+      '/login-api': {
+        // target: 'http://192.168.2.102:18020',
+        target: 'http://11.205.243.197:18020',
+        changeOrigin: true,
       }
     },
 

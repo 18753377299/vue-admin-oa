@@ -13,6 +13,11 @@ import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 Vue.use(iView);
 
+// import './assets/styles/layout/layout.less' // 引入布局样式
+// import './assets/styles/base/base.less' // 全局变量
+// import './assets/styles/cover/cover.less' // 覆盖样式
+
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
