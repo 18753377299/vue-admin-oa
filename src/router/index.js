@@ -79,14 +79,16 @@ router.beforeEach((to, from, next) => {
   let token = Cookies.get('jwtToken')
   if(token){
     console.log('token')
-    next({
-      path: '/'
-    })
+    next();
   }else {
     console.log('token-next')
-    next({
-      path: '/login'
-    })
+    if(to.path === '/login'){
+      next()
+    }else {
+      next({
+        path: '/login'
+      })
+    }
   }
 
 })
