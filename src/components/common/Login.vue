@@ -244,12 +244,12 @@
             if (valid) {
               let dd = {username: this.formValidate.name, password: this.formValidate.password}
               this.axios.post('/login-api/getInfoLogin', dd).then(response => {
-                let status = response.status
+                let status = response.data.statusCode
 //                let userInfo = response.userInfo
-                let message = response.message
-                let token = response.token
+                let message = response.data.message
+                let token = response.data.parameterMap.token
                 if (status === '1') {
-                  Cookies.set('jwtToken', token)
+                    Cookies.set('jwtToken', token)
 //                  this.$store.commit('SET_USERINFO', userInfo)
                   this.$Message.success('登录成功!')
                   this.$router.push('/')
