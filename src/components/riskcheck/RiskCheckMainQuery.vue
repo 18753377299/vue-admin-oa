@@ -15,6 +15,12 @@
                 <Input type="text" v-model="riskCheckMainVo.insuredName"></Input>
               </FormItem>
               </Col>
+
+              <Col span="8">
+                <Upload action='' :before-upload="upload">
+                  <i-button type="ghost" icon="ios-cloud-upload-outline">上传文件</i-button>
+                </Upload>
+              </Col>
               <!--<Col span="8">-->
               <!--<FormItem label="巡检编号：" prop="riskCname">-->
                 <!--<Input type="text" placeholder="请输入..."  v-model="riskCheckMainVo.riskCname"/>-->
@@ -133,6 +139,19 @@
     },
     created(){},
     methods:{
+      upload(file){
+        var data ={file: file}
+        let formData = new FormData();
+        formData.append('file',file)
+        this.axios.post('/riskcontrol/file/fileUpload',formData).then((response)=>{
+          console.log('you are right!')
+//          this.showFlag = true
+//          this.riskInfoClaimList=response.data.result;
+//          this.totalCount = response.data.totalCount
+        }).catch((response)=>{
+          console.log(response)
+        })
+      },
       changepage(index){
         this.pageNo = index
         this.query()
@@ -142,7 +161,7 @@
         this.query()
       },
       query(){
-        this.axios.post('/riskinfo-api/queryRiskCheckMain',this._data).then((response)=>{
+        this.axios.post('/riskcontrol/riskinfo-api/queryRiskCheckMain',this._data).then((response)=>{
           console.log('you are right!')
 //          this.showFlag = true
 //          this.riskInfoClaimList=response.data.result;

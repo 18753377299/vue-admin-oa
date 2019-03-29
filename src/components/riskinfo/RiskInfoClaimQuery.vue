@@ -325,7 +325,7 @@
       query(){
         this.$refs['riskInfoClaimVo'].validate((valid) => {
           if(valid){
-            this.axios.post('/riskinfo-api/queryRiskInfoClaim',this._data).then((response)=>{
+            this.axios.post('/riskcontrol/riskinfo-api/queryRiskInfoClaim',this._data).then((response)=>{
               console.log('you are right!')
               this.showFlag = true
               this.riskInfoClaimList=response.data.result;

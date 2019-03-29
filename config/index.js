@@ -10,23 +10,30 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/leave-api': {
+      // '/leave-api': {
+      //   // target: 'http://192.168.2.102:18020',
+      //   target: 'http://11.205.243.197:18020',
+      //   changeOrigin: true,
+      //   // pathRewrite: {
+      //   //   '^/leave-api':''
+      //   // }
+      // },
+      // '/riskinfo-api': {
+      //   // target: 'http://192.168.2.102:18020',
+      //   target: 'http://11.205.243.197:18020',
+      //   changeOrigin: true,
+      // },
+      // '/login-api': {
+      //   // target: 'http://192.168.2.102:18020',
+      //   target: 'http://11.205.243.197:18020',
+      //   changeOrigin: true,
+      // },
+
+      // 通过配置nginx进行监听
+      '/riskcontrol': {
         // target: 'http://192.168.2.102:18020',
-        target: 'http://11.205.243.197:18020',
-        changeOrigin: true,
-        // pathRewrite: {
-        //   '^/leave-api':''
-        // }
-      },
-      '/riskinfo-api': {
-        // target: 'http://192.168.2.102:18020',
-        target: 'http://11.205.243.197:18020',
-        changeOrigin: true,
-      },
-      '/login-api': {
-        // target: 'http://192.168.2.102:18020',
-        target: 'http://11.205.243.197:18020',
-        changeOrigin: true,
+        target: 'http://11.205.243.197:8017',
+        changeOrigin: true
       }
     },
 

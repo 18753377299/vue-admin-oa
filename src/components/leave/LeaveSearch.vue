@@ -104,7 +104,7 @@
     },
     methods:{
       query(){
-        this.axios.get('/riskinfo-api/queryRiskInfoClaim').then((response)=>{
+        this.axios.get('/riskcontrol/riskinfo-api/queryRiskInfoClaim').then((response)=>{
           console.log('you are right!')
 //          this.newsList=response.data.data;
         }).catch((response)=>{

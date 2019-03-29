@@ -243,12 +243,12 @@
           setTimeout(() => {
             if (valid) {
               let dd = {username: this.formValidate.name, password: this.formValidate.password}
-              this.axios.post('/login-api/getInfoLogin', dd).then(response => {
+              this.axios.post('/riskcontrol/login-api/getInfoLogin', dd).then(response => {
                 let status = response.data.statusCode
 //                let userInfo = response.userInfo
                 let message = response.data.message
-                let token = response.data.parameterMap.token
                 if (status === '1') {
+                  let token = response.data.parameterMap.token
                     Cookies.set('jwtToken', token)
 //                  this.$store.commit('SET_USERINFO', userInfo)
                   this.$Message.success('登录成功!')
