@@ -8,14 +8,23 @@
         </div>
         <div >
           <!--v-show="selectShowFlag"-->
-          <Form ref="riskCheckMainVo"  :rules="ruleValidate"  :model="riskCheckMainVo" label-position="right" class="form1" :label-width="140">
+          <Form ref="riskCheckMainVo" :model="riskCheckMainVo" label-position="right" class="form1" :label-width="140">
+            <!--:rules="ruleValidate"-->
             <Row>
               <Col span="8">
-              <FormItem label="被保险人：" prop="claimName">
+              <FormItem label="被保险人：" prop="insuredName">
                 <Input type="text" v-model="riskCheckMainVo.insuredName"></Input>
               </FormItem>
               </Col>
-
+              <Col span="8">
+              <FormItem label="查勘险类：" prop="riskName" >
+                <Select v-model="riskCheckMainVo.riskName" :clearable="true"  ref="resetSelect" @on-change="changeRiskName">
+                  <Option value="">请选择</Option>
+                  <Option value="Q">企财险</Option>
+                  <Option value="y">货运险</Option>
+                </Select>
+              </FormItem>
+              </Col>
               <Col span="8">
                 <Upload action='' :before-upload="upload">
                   <i-button type="ghost" icon="ios-cloud-upload-outline">上传文件</i-button>
@@ -132,13 +141,21 @@
         totalCount:'',
         pageSize: 5,
         pageNo: 1,
+        showFlag: false,
+        showicon: 'fa fa-angle-double-up fa-2x',
+        center: "center",
         riskCheckMainVo: {
-          insuredName: ''
+          insuredName: '',
+          riskName: ''
         }
       }
     },
     created(){},
     methods:{
+      changeRiskName(){
+        this.riskCheckMainVo.riskName = ''
+        this.$refs.resetSelect.clearSingleSelect();
+      },
       upload(file){
         var data ={file: file}
         let formData = new FormData();

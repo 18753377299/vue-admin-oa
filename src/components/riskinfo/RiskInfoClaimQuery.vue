@@ -39,7 +39,7 @@
               </FormItem>
               </Col>
               <Col span="12">
-              <FormItem label="查勘险类：" prop="riskNames">
+              <FormItem label="查勘险类：" prop="riskNames" @on-change="changeRiskName">
                 <Select v-model="riskInfoClaimVo.riskNames" filterable multiple>
                   <Option v-for="item in riskNameList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
@@ -314,6 +314,12 @@
 
     },
     methods:{
+      changeRiskName() {
+        console.log(this.riskInfoClaimVo)
+        if(this.riskInfoClaimVo.riskNames!==null&&this.riskInfoClaimVo.riskNames!==''){
+          this.riskInfoClaimVo.riskNames = []
+        }
+      },
       changepage(index){
         this.pageNo = index
         this.query();

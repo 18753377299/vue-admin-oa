@@ -31,16 +31,16 @@ module.exports = {
 
       // 通过配置nginx进行监听
       '/riskcontrol': {
-        // target: 'http://192.168.2.102:18020',
-        target: 'http://11.205.243.197:8017',
+        target: 'http://192.168.2.102:8017',
+        // target: 'http://11.205.243.197:8017',
         changeOrigin: true
       }
     },
 
     // Various Dev Server settings
     // host: 'localhost', // can be overwritten by process.env.HOST
-    // host: '192.168.2.102',
-    host: '11.205.243.197',
+    host: '192.168.2.102',
+    // host: '11.205.243.197',
     port: 8018, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
