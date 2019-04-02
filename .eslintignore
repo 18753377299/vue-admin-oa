@@ -3,3 +3,6 @@
 /dist/
 /*.js
 /src/*
+src/assets/js/*.js
+src/assets/js/Lang/*.js
+src/components/views/riskmap/*.vue

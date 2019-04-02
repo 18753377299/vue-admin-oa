@@ -22,6 +22,10 @@ const createLintingRule = () => ({
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
+    vendor: ['./src/assets/js/SuperMap.Include','./src/assets/js/SuperMap_Basic-8.1.1-15523',
+      './src/assets/js/SuperMap_Cloud-8.1.1-15523','./src/assets/js/SuperMap_IServer-8.1.1-15523',
+      './src/assets/js/SuperMap_OGC-8.1.1-15523', './src/assets/js/SuperMap_Visualization-8.1.1-15523',
+      './src/assets/js/SuperMap-8.1.1-15523'],
     app: './src/main.js'
   },
   output: {

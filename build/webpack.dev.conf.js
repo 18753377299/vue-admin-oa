@@ -55,14 +55,25 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
+      // chunksSortMode: 'dependency',
+      chunksSortMode: (a,b) => {
+        if (a.names[0] > b.names[0]) {
+          return -1;
+        }
+        if (a.names[0] < b.names[0]) {
+          return 1;
+        }
+        return 0;
+      },
       inject: true
     }),
     // copy custom static assets
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),
-        to: config.dev.assetsSubDirectory,
-        ignore: ['.*']
+        to: './'
+        // to: config.dev.assetsSubDirectory,
+        // ignore: ['.*']
       }
     ])
   ]

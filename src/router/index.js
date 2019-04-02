@@ -7,6 +7,7 @@ import LeaveSearch from '@/components/leave/LeaveSearch.vue'
 import RiskInfoClaimQuery from '@/components/riskinfo/RiskInfoClaimQuery.vue'
 import RiskCheckMainQuery from '@/components/riskcheck/RiskCheckMainQuery.vue'
 import Login from '@/components/common/Login'
+import map from '@/components/riskmap/map'
 
 Vue.use(Router)
 
@@ -55,6 +56,12 @@ const routes =  [
     path: '/login',
     name: 'Login',
     component: Login,
+    children:[]
+  },
+  {
+    path: '/map',
+      name: 'map',
+    component: map,
     children:[]
   }
 ]
