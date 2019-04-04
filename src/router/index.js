@@ -8,6 +8,7 @@ import RiskInfoClaimQuery from '@/components/riskinfo/RiskInfoClaimQuery.vue'
 import RiskCheckMainQuery from '@/components/riskcheck/RiskCheckMainQuery.vue'
 import Login from '@/components/common/Login'
 import map from '@/components/riskmap/map'
+import maptf from '@/components/riskmap/MapTF'
 
 Vue.use(Router)
 
@@ -63,7 +64,14 @@ const routes =  [
       name: 'map',
     component: map,
     children:[]
+  },
+  {
+    path: '/maptf',
+    name: 'maptf',
+    component: maptf,
+    children:[]
   }
+
 ]
 
 const router = new Router({
@@ -82,22 +90,22 @@ const router = new Router({
  * 则导航的状态就是 confirmed （确认的）；否则为false，终止导航。
  * */
 
-router.beforeEach((to, from, next) => {
-  let token = Cookies.get('jwtToken')
-  if(token){
-    console.log('token')
-    next();
-  }else {
-    console.log('token-next')
-    if(to.path === '/login'){
-      next()
-    }else {
-      next({
-        path: '/login'
-      })
-    }
-  }
-
-})
+// router.beforeEach((to, from, next) => {
+//   let token = Cookies.get('jwtToken')
+//   if(token){
+//     console.log('token')
+//     next();
+//   }else {
+//     console.log('token-next')
+//     if(to.path === '/login'){
+//       next()
+//     }else {
+//       next({
+//         path: '/login'
+//       })
+//     }
+//   }
+//
+// })
 
 export default router
