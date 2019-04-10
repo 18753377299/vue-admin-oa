@@ -92,5 +92,13 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  }
+  },
+  plugins: [
+    // 该条如果不删掉，会导致打包不成功
+    // new webpack.optimize.CommonsChunkPlugin('common'),
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery'
+    })
+  ]
 }

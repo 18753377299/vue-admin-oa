@@ -1,22 +1,25 @@
 <template>
-  <div>
+  <Card>
     <div>
       <Button @click="drawDraw">绘制实时台风</Button>
+      <Button @click="mapToImg" id="jietu">截图</Button>
     </div>
-    <div id='map' style="margin:0 auto;width: 1000px;height: 1000px"></div>
-    <div>
-      <div id="curve" style="display: none;">
-        <div id="content"></div>
-      </div>
-    </div>
-  </div>
+    <div id='map' style="margin:0 auto; padding-top: 1px;width: 2000px;height: 1500px"></div>
+    <!--<div>-->
+      <!--<div id="curve" style="display: none;">-->
+        <!--<div id="content"></div>-->
+      <!--</div>-->
+    <!--</div>-->
+  </Card>
 </template>
 <script>
+//  import
   export default {
     mounted () {
       var layer,
         host = window.isLocal ? window.server : "http://support.supermap.com.cn:8090",
-        url = host + "/iserver/services/map-world/rest/maps/World";
+//        url = host + "/iserver/services/map-world/rest/maps/World";
+        url="http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/china_province@areakind";
 
         this.vectorLayer = new SuperMap.Layer.Vector("Vector Layer");
 //        this.vectorLayer1 = new SuperMap.Layer.Vector("Vector Layer1");
@@ -50,14 +53,228 @@
           ["112.549248","37.857014"]
         ],
         url2: 'http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/china_province@areakind',
-
+        LAYER_COUNT: 0,
+        LAYER_LENGTH: 0
       }
     },
     methods: {
+      mapToImg() {
+//        MapToImg&&MapToImg.excute(this.map);
+        this.printMapExecute()
+      },
+      printMapExecute(){
+        var canvas = document.createElement("canvas");
+        var broz = SuperMap.Browser.name;
+        if(!canvas.getContext||(broz=='msie'&&!canvas.msToBlob)){
+          alert("您的浏览器版本太低，请升级。");
+          return;
+        }
+        this.LAYER_COUNT = 0;
+
+        var layers = this.map.layers.concat([]);
+
+        //layers排序，将markers放到最上边
+        var layers1 = [];
+        for(var i=0;i<layers.length;){
+          if(layers[i].CLASS_NAME == "SuperMap.Layer.Markers"){
+            var templayer = layers.splice(i,1);
+            layers1.push(templayer[0]);
+          } else if(layers[i].CLASS_NAME == "SuperMap.Layer.GOAnimationLayer" ||
+            layers[i].CLASS_NAME == "SuperMap.Layer.PlottingLayer.Temporary" ||
+            (layers[i].CLASS_NAME == "SuperMap.Layer.PlottingLayer" && !layers[i].getVisibility()) ||
+            layers[i].CLASS_NAME == "SuperMap.Layer.PlottingLayer.RootContainer"){
+            //处理标绘图层的动画图层和图层不显示
+            layers.splice(i,1);
+          } else {
+            i++;
+          }
+        }
+        layers = layers.concat(layers1);
+
+        this.LAYER_LENGTH = layers.length;
+
+        var imgUrls = [];
+        for(var i=0;i<layers.length;i++){
+          var layer = layers[i];
+          if(layer.CLASS_NAME == "SuperMap.Layer.TiledDynamicRESTLayer"){
+            if(layer.useCanvas==false){
+              this.draw(this.getImgLayerData(layer,this.map),i,imgUrls);
+            }
+            else{
+              this.draw(this.getCanvasLayerData(layer),i,imgUrls);
+            }
+          }
+          else if(layer.CLASS_NAME == "SuperMap.Layer.Markers"){
+            this.draw(this.getImgLayerData(layer,this.map),i,imgUrls);
+          }
+//          else if(layer.CLASS_NAME == "SuperMap.Layer.Vector"){
+//            getVectorLayerData(layer,this.map,function(imgUrls,i){
+//              return function(img){
+//                this.draw(img,i,imgUrls);
+//              }
+//            }(imgUrls,i))
+//          }
+//          else if(layer.CLASS_NAME == "SuperMap.Layer.PlottingLayer"){
+//            getPlottingLayerData(layer,map,function(imgUrls,i){
+//              return function(img){
+//                draw(img,i,imgUrls);
+//              }
+//            }(imgUrls,i))
+//          }
+
+        }
+      },
+      draw(img,i,imgUrls){
+        imgUrls[i] = img;
+        this.LAYER_COUNT++;
+
+        if(this.LAYER_COUNT>=this.LAYER_LENGTH){
+          var canvas = document.createElement("canvas");
+          var size = this.map.getSize();
+          canvas.height = size.h;
+          canvas.width = size.w;
+          var ctx = canvas.getContext("2d");
+
+          canvas.style.position = "relative";
+          canvas.style.border = "1px solid #4c4c4c";
+
+          //document.body.appendChild(canvas);
+
+          var panel = document.createElement("div");
+
+          panel.style.position = "absolute";
+          panel.style.left = "0px";
+          panel.style.top = "0px";
+          panel.style.height = "100%";
+          panel.style.width = "100%";
+          // panel.style.background = "#e6e8eb";
+          panel.style.background = "#ffffff";
+          document.body.appendChild(panel);
+
+
+          var buttonPanel = document.createElement("div");
+          buttonPanel.style.position = "relative";
+          panel.appendChild(buttonPanel);
+          panel.appendChild(canvas);
+
+          window.setTimeout(function(){
+            for(var i=0;i<imgUrls.length;i++){
+              ctx.drawImage(imgUrls[i],0,0);
+            }
+
+            if(canvas.msToBlob){
+              var button = document.createElement("input");
+              buttonPanel.appendChild(button);
+              button.type = "button";
+              button.value = "保存";
+
+              button.onclick = function(){
+                window.navigator.msSaveBlob(canvas.msToBlob(), 'map.png');
+              }
+            }
+            else{
+              var aa = document.createElement("a");
+              buttonPanel.appendChild(aa);
+              aa.target = "_blank";
+              aa.download="map.png";
+              aa.href=canvas.toDataURL();
+
+              var button = document.createElement("input");
+              aa.appendChild(button);
+              button.type = "button";
+              button.value = "保存";
+            }
+
+            var button = document.createElement("input");
+            buttonPanel.appendChild(button);
+            button.type = "button";
+            button.value = "关闭";
+            button.onclick = function(){
+              document.body.removeChild(panel);
+            }
+          },30);
+        }
+      },
+      //截取canvas图层
+      getCanvasLayerData(layer){
+        var div = layer.div;
+
+        var canvas0 = div.getElementsByTagName("canvas")[0];
+
+        var size = this.map.getSize();
+        canvas0.height = 100;
+        canvas0.width = 100;
+        var ctx = canvas0.getContext("2d");
+
+        canvas0.style.position = "absolute";
+        canvas0.style.left = "5px";
+        canvas0.style.top = "0px";
+        canvas0.style.border = "1px solid #f00";
+
+        var imageUrl = canvas0.toDataURL("image/png");
+        console.log('imageUrl:'+imageUrl)
+//        var imageUrl = canvas.toDataURL("image/png");
+        var img = new Image();
+        img.src = imageUrl;
+
+        return img;
+      },
+      getImgLayerData(layer,map){
+        var div = layer.div;
+        var pdiv = div.parentNode;
+        var offsetX =  parseInt(pdiv.style.left.replace(/px/,""));
+        var offsetY =  parseInt(pdiv.style.top.replace(/px/,""));
+
+        var canvas = document.createElement("canvas");
+        var size = map.getSize();
+        canvas.height = size.h;
+        canvas.width = size.w;
+        var ctx = canvas.getContext("2d");
+
+        canvas.style.position = "absolute";
+        canvas.style.left = "5px";
+        canvas.style.top = "600px";
+        canvas.style.border = "1px solid #f00";
+
+        //document.body.appendChild(canvas);
+
+        var divs = div.getElementsByTagName("div");
+        for(var i=0;i<divs.length;i++){
+          var div1 = divs[i];
+          if(div1.style.display!="none"){
+            var left = parseInt(div1.style.left.replace(/px/,""));
+            var top = parseInt(div1.style.top.replace(/px/,""));
+            var img = div1.getElementsByTagName("img")[0];
+            var imgWidth = img.style.width;
+            var imgHeight = img.style.height;
+            var imgW = null,imgH = null;
+            if(imgWidth!=null||imgWidth!=""){
+              imgW = parseInt(imgWidth.replace(/px/,""));
+            }
+            if(imgHeight!=null||imgHeight!=""){
+              imgH = parseInt(imgHeight.replace(/px/,""));
+            }
+            if(imgW!=null&&imgH!=null){
+              ctx.drawImage(img,left+offsetX,top+offsetY,imgW,imgH);
+            }
+            else{
+              ctx.drawImage(img,left+offsetX,top+offsetY);
+            }
+          }
+        }
+        var imageUrl = canvas.toDataURL("image/png");
+        var img = new Image();
+        img.setAttribute("crossOrigin",'Anonymous')
+        img.src = imageUrl;
+        return img;
+      },
+
+
       addLayer(layer) {
-        this.map.addLayers([layer,this.vectorLayer,this.markerLayer,this.markerLayer1,this.vector])
+        this.map.addLayers([layer])
+//        this.map.addLayers([layer,this.vectorLayer,this.markerLayer,this.markerLayer1,this.vector])
         // 显示地图范围
-        this.map.setCenter(new SuperMap.LonLat(0, 0), 0)
+        this.map.setCenter(new SuperMap.LonLat(116, 39), 4)
       },
       drawDraw(){
         this.LSLJ_DrawPath(0, 0);
