@@ -41,20 +41,9 @@
       })
       this.map.addControl(new SuperMap.Control.MousePosition())
       // 初始化图层
-      this.layer = new SuperMap.Layer.TiledDynamicRESTLayer("World", url, null, {maxResolution: "auto"})
+      this.layer = new SuperMap.Layer.TiledDynamicRESTLayer("World", url, null, { maxResolution: "auto" , useCanvas:false,useCORS:true})
       // 监听图层信息加载完成事件
       this.layer.events.on({"layerInitialized": this.addLayer})
-
-//      this.canvasData = document.createElement("canvas");
-//      this.canvasData.setAttribute("crossOrigin",'Anonymous')
-//      this.canvasData.height = 100;
-//      this.canvasData.width = 100;
-//
-//      var broz = SuperMap.Browser.name;
-//      if(!this.canvasData.getContext||(broz=='msie'&&!this.canvasData.msToBlob)){
-//        alert("您的浏览器版本太低，请升级。");
-//        return;
-//      }
 
     },
     created () {
