@@ -9,6 +9,7 @@ import RiskCheckMainQuery from '@/components/riskcheck/RiskCheckMainQuery.vue'
 import Login from '@/components/common/Login'
 import map from '@/components/riskmap/map'
 import maptf from '@/components/riskmap/MapTF'
+import mapcanvas from  '@/components/riskmap/MapCanvas'
 
 Vue.use(Router)
 
@@ -69,6 +70,12 @@ const routes =  [
     path: '/maptf',
     name: 'maptf',
     component: maptf,
+    children:[]
+  },
+  {
+    path: '/mapcan',
+    name: 'mapcan',
+    component: mapcanvas,
     children:[]
   }
 

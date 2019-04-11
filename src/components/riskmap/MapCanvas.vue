@@ -1,29 +1,31 @@
 <template>
-  <Card>
-    <div>
-      <Button @click="drawDraw">绘制实时台风</Button>
-      <Button @click="mapToImg" id="jietu">截图</Button>
-      <Button @click="drawCircle" >画圆</Button>
-    </div>
-    <!--<div>-->
+  <div>
+    <Card>
+      <div>
+        <Button @click="drawDraw">绘制实时台风</Button>
+        <Button @click="mapToImg" id="jietu">截图</Button>
+        <!--<img src="iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAABZUlEQVR4Xu3TQREAAAiEQK9/aWvsAxMw4O06ysAommCuINgTFKQgmAEMp4UUBDOA4bSQgmAGMJwWUhDMAIbTQgqCGcBwWkhBMAMYTgspCGYAw2khBcEMYDgtpCCYAQynhRQEM4DhtJCCYAYwnBZSEMwAhtNCCoIZwHBaSEEwAxhOCykIZgDDaSEFwQxgOC2kIJgBDKeFFAQzgOG0kIJgBjCcFlIQzACG00IKghnAcFpIQTADGE4LKQhmAMNpIQXBDGA4LaQgmAEMp4UUBDOA4bSQgmAGMJwWUhDMAIbTQgqCGcBwWkhBMAMYTgspCGYAw2khBcEMYDgtpCCYAQynhRQEM4DhtJCCYAYwnBZSEMwAhtNCCoIZwHBaSEEwAxhOCykIZgDDaSEFwQxgOC2kIJgBDKeFFAQzgOG0kIJgBjCcFlIQzACG00IKghnAcFpIQTADGE4LKQhmAMNpIQXBDGA4LQQL8oTPAGUY76lBAAAAAElFTkSuQmCC" style="width: 100px;height: 100px"/>-->
+      </div>
+      <!--<div>-->
       <!--<canvas id="roundness" width="600" height="300"></canvas>-->
-    <!--</div>-->
-    <div id='map' style="margin:0 auto; padding-top: 1px;width: 2000px;height: 1500px"></div>
-    <!--<div>-->
-      <!--<div id="curve" style="display: none;">-->
-        <!--<div id="content"></div>-->
       <!--</div>-->
-    <!--</div>-->
-  </Card>
+      <div id='map' ref="cutScreen" style="margin:0 auto; padding-top: 1px;width: 2000px;height: 1500px"></div>
+      <!--<div>-->
+      <!--<div id="curve" style="display: none;">-->
+      <!--<div id="content"></div>-->
+      <!--</div>-->
+      <!--</div>-->
+    </Card>
+  </div>
 </template>
 <script>
-//  import
+  import html2canvas from 'html2canvas'
   export default {
     mounted () {
-      var layer,
-        host = window.isLocal ? window.server : "http://support.supermap.com.cn:8090",
+//      var layer;
+       var host = window.isLocal ? window.server : "http://support.supermap.com.cn:8090";
 //        url = host + "/iserver/services/map-world/rest/maps/World";
-        url="http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/china_province@areakind";
+       var  url="http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/china_province@areakind";
 
         this.vectorLayer = new SuperMap.Layer.Vector("Vector Layer");
 //        this.vectorLayer1 = new SuperMap.Layer.Vector("Vector Layer1");
@@ -39,9 +41,20 @@
       })
       this.map.addControl(new SuperMap.Control.MousePosition())
       // 初始化图层
-      layer = new SuperMap.Layer.TiledDynamicRESTLayer("World", url, null, {maxResolution: "auto"})
+      this.layer = new SuperMap.Layer.TiledDynamicRESTLayer("World", url, null, {maxResolution: "auto"})
       // 监听图层信息加载完成事件
-      layer.events.on({"layerInitialized": this.addLayer})
+      this.layer.events.on({"layerInitialized": this.addLayer})
+
+//      this.canvasData = document.createElement("canvas");
+//      this.canvasData.setAttribute("crossOrigin",'Anonymous')
+//      this.canvasData.height = 100;
+//      this.canvasData.width = 100;
+//
+//      var broz = SuperMap.Browser.name;
+//      if(!this.canvasData.getContext||(broz=='msie'&&!this.canvasData.msToBlob)){
+//        alert("您的浏览器版本太低，请升级。");
+//        return;
+//      }
 
     },
     created () {
@@ -54,7 +67,10 @@
     },
     data () {
       return {
+        imageUrls: '',
+        canvasData: '',
         map: '',
+        layer: '',
         vector: '',
         vectorLayer: '',
         markerLayer: '',
@@ -70,30 +86,18 @@
       }
     },
     methods: {
-      drawCircle(){
-        var canvas = document.getElementById("roundness");
-        var context = canvas.getContext("2d");
-        context.strokeStyle = "aqua";//圆形的颜色
-        context.lineWidth = "2";
-        context.beginPath();
-        context.arc(100,100,40,0,2*Math.PI);  //40此值设置圆形的大小
-        context.stroke();
-      },
       mapToImg() {
 //        MapToImg&&MapToImg.excute(this.map);
         this.printMapExecute()
       },
       printMapExecute(){
-        var canvas = document.createElement("canvas");
-        canvas.setAttribute("crossOrigin",'Anonymous')
-        canvas.height = 100;
-        canvas.width = 100;
-
+//        var canvas = document.createElement("canvas");
         var broz = SuperMap.Browser.name;
-        if(!canvas.getContext||(broz=='msie'&&!canvas.msToBlob)){
-          alert("您的浏览器版本太低，请升级。");
-          return;
-        }
+//        if(!canvas.getContext||(broz=='msie'&&!canvas.msToBlob)){
+//          alert("您的浏览器版本太低，请升级。");
+//          return;
+//        }
+
         this.LAYER_COUNT = 0;
 
         var layers = this.map.layers.concat([]);
@@ -129,6 +133,29 @@
             else{
               this.draw(this.getCanvasLayerData(layer),i,imgUrls);
 //              this.draw(this.getImgLayerData(layer,this.map),i,imgUrls);
+//              var canvas0 = document.createElement("canvas");
+//              var div = layer.div;
+//              var canvas0 = div.getElementsByTagName("canvas")[0];
+//              canvas0.height = 100;
+//              canvas0.width = 100;
+
+//              canvas0.setAttribute('crossOrigin', 'anonymous');
+//              var imageUrl = canvas0.toDataURL("image/png");
+//              this.imageUrls = imageUrl
+////              var imageUrl = canvas0.toDataURL("image/jpeg");
+//              console.log('imageUrl:'+imageUrl)
+//              var img = new Image();
+//              img.setAttribute('crossOrigin', 'anonymous');
+//              img.src = imageUrl;
+
+//              html2Canvas(canvas0,{backgroundColor: null}).then(canvas => {
+//                console.log('-----picture')
+//                console.log(canvas)
+//                // var imgUri = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); // 获取生成的图片的url
+//                var imgUri = canvas.toDataURL("image/png")
+//                window.location.href= imgUri // 下载图片
+//              });
+
 
             }
           }
@@ -151,6 +178,94 @@
 //          }
 
         }
+      },
+      //截取canvas图层
+      getCanvasLayerData(layer){
+        var div = layer.div;
+
+        var canvas0 = div.getElementsByTagName("canvas")[0];
+
+        var size = this.map.getSize();
+//        canvas0.height = size.h - 1;
+//        canvas0.width = size.w;
+        var ctx = canvas0.getContext("2d");
+//
+//        canvas0.style.position = "absolute";
+//        canvas0.style.left = "5px";
+//        canvas0.style.top = "0px";
+//        canvas0.style.border = "1px solid #f00";
+
+//        var imageUrl = canvas0.toDataURL("image/png");
+//        var imageUrl = this.canvasData.toDataURL("image/png");
+//        console.log('imageUrl:'+imageUrl)
+//        var imageUrl = canvas.toDataURL("image/png");
+        canvas0.setAttribute('crossOrigin', 'anonymous');
+        ctx.drawImage(canvas0,2000,1499);
+        var imageUrl = canvas0.toDataURL("image/png");
+        var img = new Image();
+
+        img.setAttribute('crossOrigin', 'anonymous');
+//        img.setAttribute("crossOrigin",'Anonymous')
+//        var div = layer.div;
+//        var canvas0 = div.getElementsByTagName("canvas")[0];
+//        img.onload = function () {
+//          var imageUrl = canvas0.toDataURL("image/png");
+//          return img;
+//        }
+        console.log('imageUrl:'+imageUrl)
+//        img.src = imageUrl;
+
+        return img;
+      },
+      getImgLayerData(layer,map){
+        var div = layer.div;
+        console.log(div)
+        var pdiv = div.parentNode;
+        var offsetX =  parseInt(pdiv.style.left.replace(/px/,""));
+        var offsetY =  parseInt(pdiv.style.top.replace(/px/,""));
+
+        var canvas = document.createElement("canvas");
+        var size = map.getSize();
+        canvas.height = size.h;
+        canvas.width = size.w;
+        var ctx = canvas.getContext("2d");
+
+        canvas.style.position = "absolute";
+        canvas.style.left = "5px";
+        canvas.style.top = "600px";
+        canvas.style.border = "1px solid #f00";
+
+        //document.body.appendChild(canvas);
+
+        var divs = div.getElementsByTagName("div");
+        for(var i=0;i<divs.length;i++){
+          var div1 = divs[i];
+          if(div1.style.display!="none"){
+            var left = parseInt(div1.style.left.replace(/px/,""));
+            var top = parseInt(div1.style.top.replace(/px/,""));
+            var img = div1.getElementsByTagName("img")[0];
+            var imgWidth = img.style.width;
+            var imgHeight = img.style.height;
+            var imgW = null,imgH = null;
+            if(imgWidth!=null||imgWidth!=""){
+              imgW = parseInt(imgWidth.replace(/px/,""));
+            }
+            if(imgHeight!=null||imgHeight!=""){
+              imgH = parseInt(imgHeight.replace(/px/,""));
+            }
+            if(imgW!=null&&imgH!=null){
+              ctx.drawImage(img,left+offsetX,top+offsetY,imgW,imgH);
+            }
+            else{
+              ctx.drawImage(img,left+offsetX,top+offsetY);
+            }
+          }
+        }
+        var imageUrl = canvas.toDataURL("image/png");
+        var img = new Image();
+        img.setAttribute("crossOrigin",'Anonymous')
+        img.src = imageUrl;
+        return img;
       },
       draw(img,i,imgUrls){
         imgUrls[i] = img;
@@ -223,87 +338,17 @@
           },30);
         }
       },
-      //截取canvas图层
-      getCanvasLayerData(layer){
-        var div = layer.div;
-
-        var canvas0 = div.getElementsByTagName("canvas")[0];
-
-//        var size = this.map.getSize();
-//        canvas0.height = 100;
-//        canvas0.width = 100;
-//        var ctx = canvas0.getContext("2d");
-//
-//        canvas0.style.position = "absolute";
-//        canvas0.style.left = "5px";
-//        canvas0.style.top = "0px";
-//        canvas0.style.border = "1px solid #f00";
-
-        var imageUrl = canvas0.toDataURL("image/png");
-        console.log('imageUrl:'+imageUrl)
-//        var imageUrl = canvas.toDataURL("image/png");
-        var img = new Image();
-        img.setAttribute("crossOrigin",'Anonymous')
-        img.src = imageUrl;
-
-        return img;
-      },
-      getImgLayerData(layer,map){
-        var div = layer.div;
-        var pdiv = div.parentNode;
-        var offsetX =  parseInt(pdiv.style.left.replace(/px/,""));
-        var offsetY =  parseInt(pdiv.style.top.replace(/px/,""));
-
-        var canvas = document.createElement("canvas");
-        var size = map.getSize();
-        canvas.height = size.h;
-        canvas.width = size.w;
-        var ctx = canvas.getContext("2d");
-
-        canvas.style.position = "absolute";
-        canvas.style.left = "5px";
-        canvas.style.top = "600px";
-        canvas.style.border = "1px solid #f00";
-
-        //document.body.appendChild(canvas);
-
-        var divs = div.getElementsByTagName("div");
-        for(var i=0;i<divs.length;i++){
-          var div1 = divs[i];
-          if(div1.style.display!="none"){
-            var left = parseInt(div1.style.left.replace(/px/,""));
-            var top = parseInt(div1.style.top.replace(/px/,""));
-            var img = div1.getElementsByTagName("img")[0];
-            var imgWidth = img.style.width;
-            var imgHeight = img.style.height;
-            var imgW = null,imgH = null;
-            if(imgWidth!=null||imgWidth!=""){
-              imgW = parseInt(imgWidth.replace(/px/,""));
-            }
-            if(imgHeight!=null||imgHeight!=""){
-              imgH = parseInt(imgHeight.replace(/px/,""));
-            }
-            if(imgW!=null&&imgH!=null){
-              ctx.drawImage(img,left+offsetX,top+offsetY,imgW,imgH);
-            }
-            else{
-              ctx.drawImage(img,left+offsetX,top+offsetY);
-            }
-          }
-        }
-        var imageUrl = canvas.toDataURL("image/png");
-        var img = new Image();
-        img.setAttribute("crossOrigin",'Anonymous')
-        img.src = imageUrl;
-        return img;
-      },
-
-
       addLayer(layer) {
-        this.map.addLayers([layer])
+        this.map.addLayers([this.layer])
 //        this.map.addLayers([layer,this.vectorLayer,this.markerLayer,this.markerLayer1,this.vector])
         // 显示地图范围
         this.map.setCenter(new SuperMap.LonLat(116, 39), 4)
+
+//        var canvas0 = document.getElementsByTagName("canvas")[0];
+//
+//        var size = this.map.getSize();
+//        canvas0.height = size.h - 1;
+//        canvas0.width = size.w;
       },
       drawDraw(){
         this.LSLJ_DrawPath(0, 0);
