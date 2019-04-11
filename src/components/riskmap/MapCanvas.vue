@@ -80,12 +80,12 @@
         this.printMapExecute()
       },
       printMapExecute(){
-//        var canvas = document.createElement("canvas");
+        var canvas = document.createElement("canvas");
         var broz = SuperMap.Browser.name;
-//        if(!canvas.getContext||(broz=='msie'&&!canvas.msToBlob)){
-//          alert("您的浏览器版本太低，请升级。");
-//          return;
-//        }
+        if(!canvas.getContext||(broz=='msie'&&!canvas.msToBlob)){
+          alert("您的浏览器版本太低，请升级。");
+          return;
+        }
 
         this.LAYER_COUNT = 0;
 
@@ -145,19 +145,19 @@
 //                window.location.href= imgUri // 下载图片
 //              });
 
-
             }
           }
           else if(layer.CLASS_NAME == "SuperMap.Layer.Markers"){
             this.draw(this.getImgLayerData(layer,this.map),i,imgUrls);
           }
-//          else if(layer.CLASS_NAME == "SuperMap.Layer.Vector"){
-//            getVectorLayerData(layer,this.map,function(imgUrls,i){
-//              return function(img){
-//                this.draw(img,i,imgUrls);
-//              }
-//            }(imgUrls,i))
-//          }
+          else if(layer.CLASS_NAME == "SuperMap.Layer.Vector"){
+            var that = this
+            this.getVectorLayerData(layer,this.map,function(imgUrls,i){
+              return function(img){
+                that.draw(img,i,imgUrls);
+              }
+            }(imgUrls,i))
+          }
 //          else if(layer.CLASS_NAME == "SuperMap.Layer.PlottingLayer"){
 //            getPlottingLayerData(layer,map,function(imgUrls,i){
 //              return function(img){
@@ -168,41 +168,75 @@
 
         }
       },
-      //截取canvas图层
+      //截取Vector图层
+      getVectorLayerData(layer,map,callback){
+        var printLayer,
+          strategies = [],
+          features1 = [],
+          features = layer.features,
+          layerStrategies = layer.strategies;
+        //GeoText无法截图问题修复
+        if(layerStrategies){
+          for(var i = 0; i<layerStrategies.length; i++){
+            if (layerStrategies[i].CLASS_NAME === "SuperMap.Strategy.GeoText"){
+              strategies.push(layerStrategies[i].clone());
+            }else{
+              strategies.push(layerStrategies[i]);
+            }
+          }
+          printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", {strategies: strategies, visibility: true, renderers: ["Canvas"]});
+        }else{
+          printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", {visibility: true, renderers: ["Canvas"]});
+        }
+        map.addLayer(printLayer);
+        for(var j=0;j<features.length;j++){
+          var feature = features[j];
+          var feature1 = new SuperMap.Feature.Vector();
+          feature1.geometry = feature.geometry.clone();
+          feature1.style = feature.style;
+
+          features1.push(feature1);
+        }
+        if(layer.style){
+          printLayer.style = layer.style;
+        }
+
+        printLayer.setOpacity(0);
+        printLayer.addFeatures(features1);
+
+        window.setTimeout(function(printLayer,map,callback){
+          return function(){
+            var div = printLayer.div;
+            var canvas1 = div.getElementsByTagName("canvas")[0];
+            var cxt1 = canvas1.getContext("2d");
+            var imageUrl = canvas1.toDataURL("image/png");
+
+            map.removeLayer(printLayer);
+            printLayer.destroy();
+
+            var img = new Image();
+            img.src = imageUrl;
+
+            callback(img);
+          }
+        }(printLayer,map,callback),30);
+      },
+  //截取canvas图层
       getCanvasLayerData(layer){
         var div = layer.div;
 
         var canvas0 = div.getElementsByTagName("canvas")[0];
 
-        var size = this.map.getSize();
-//        canvas0.height = size.h - 1;
-//        canvas0.width = size.w;
-        var ctx = canvas0.getContext("2d");
+//        var ctx = canvas0.getContext("2d");
 //
-//        canvas0.style.position = "absolute";
-//        canvas0.style.left = "5px";
-//        canvas0.style.top = "0px";
-//        canvas0.style.border = "1px solid #f00";
-
-//        var imageUrl = canvas0.toDataURL("image/png");
-//        var imageUrl = this.canvasData.toDataURL("image/png");
-//        console.log('imageUrl:'+imageUrl)
-//        var imageUrl = canvas.toDataURL("image/png");
-        canvas0.setAttribute('crossOrigin', 'anonymous');
+//        canvas0.setAttribute('crossOrigin', 'anonymous');
         ctx.drawImage(canvas0,2000,1499);
         var imageUrl = canvas0.toDataURL("image/png");
         var img = new Image();
 
         img.setAttribute('crossOrigin', 'anonymous');
-//        img.setAttribute("crossOrigin",'Anonymous')
-//        var div = layer.div;
-//        var canvas0 = div.getElementsByTagName("canvas")[0];
-//        img.onload = function () {
-//          var imageUrl = canvas0.toDataURL("image/png");
-//          return img;
-//        }
         console.log('imageUrl:'+imageUrl)
-//        img.src = imageUrl;
+        img.src = imageUrl;
 
         return img;
       },
@@ -328,16 +362,11 @@
         }
       },
       addLayer(layer) {
-        this.map.addLayers([this.layer])
-//        this.map.addLayers([layer,this.vectorLayer,this.markerLayer,this.markerLayer1,this.vector])
+//        this.map.addLayers([this.layer,this.markerLayer])
+        this.map.addLayers([layer,this.vectorLayer,this.markerLayer,this.markerLayer1,this.vector])
         // 显示地图范围
         this.map.setCenter(new SuperMap.LonLat(116, 39), 4)
 
-//        var canvas0 = document.getElementsByTagName("canvas")[0];
-//
-//        var size = this.map.getSize();
-//        canvas0.height = size.h - 1;
-//        canvas0.width = size.w;
       },
       drawDraw(){
         this.LSLJ_DrawPath(0, 0);
