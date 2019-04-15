@@ -4,6 +4,8 @@
       <div>
         <Button @click="drawDraw">绘制实时台风</Button>
         <Button @click="mapToImg" id="jietu">截图</Button>
+        Parent component: <input type="text" v-model="msg" />
+        <TestComponent :msg.sync="msg"></TestComponent>
       </div>
       <!--<div>-->
       <!--<canvas id="roundness" width="600" height="300"></canvas>-->
@@ -19,7 +21,11 @@
 </template>
 <script>
   import html2canvas from 'html2canvas'
+  import TestComponent from '@/components/common/TestComponent'
   export default {
+    components: {
+      TestComponent
+    },
     mounted () {
 //      var layer;
        var host = window.isLocal ? window.server : "http://support.supermap.com.cn:8090";
@@ -45,6 +51,8 @@
       // 监听图层信息加载完成事件
       this.layer.events.on({"layerInitialized": this.addLayer})
 
+      /**html渲染完成后，才触发*/
+      this.msg = '123'
     },
     created () {
       if(this.map.layers){
@@ -56,6 +64,7 @@
     },
     data () {
       return {
+        msg: '',
         imageUrls: '',
         canvasData: '',
         map: '',
