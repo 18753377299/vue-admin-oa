@@ -4,7 +4,6 @@
       <div>
         <Button @click="drawDraw">绘制实时台风</Button>
         <Button @click="mapToImg" id="jietu">截图</Button>
-        <!--<img src="iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAABZUlEQVR4Xu3TQREAAAiEQK9/aWvsAxMw4O06ysAommCuINgTFKQgmAEMp4UUBDOA4bSQgmAGMJwWUhDMAIbTQgqCGcBwWkhBMAMYTgspCGYAw2khBcEMYDgtpCCYAQynhRQEM4DhtJCCYAYwnBZSEMwAhtNCCoIZwHBaSEEwAxhOCykIZgDDaSEFwQxgOC2kIJgBDKeFFAQzgOG0kIJgBjCcFlIQzACG00IKghnAcFpIQTADGE4LKQhmAMNpIQXBDGA4LaQgmAEMp4UUBDOA4bSQgmAGMJwWUhDMAIbTQgqCGcBwWkhBMAMYTgspCGYAw2khBcEMYDgtpCCYAQynhRQEM4DhtJCCYAYwnBZSEMwAhtNCCoIZwHBaSEEwAxhOCykIZgDDaSEFwQxgOC2kIJgBDKeFFAQzgOG0kIJgBjCcFlIQzACG00IKghnAcFpIQTADGE4LKQhmAMNpIQXBDGA4LQQL8oTPAGUY76lBAAAAAElFTkSuQmCC" style="width: 100px;height: 100px"/>-->
       </div>
       <!--<div>-->
       <!--<canvas id="roundness" width="600" height="300"></canvas>-->
@@ -26,6 +25,7 @@
        var host = window.isLocal ? window.server : "http://support.supermap.com.cn:8090";
 //        url = host + "/iserver/services/map-world/rest/maps/World";
        var  url="http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/china_province@areakind";
+//      var  url="http://10.10.2.241:8091/iserver/services/map-tianditu/rest/maps/矢量底图_经纬度";
 
         this.vectorLayer = new SuperMap.Layer.Vector("Vector Layer");
 //        this.vectorLayer1 = new SuperMap.Layer.Vector("Vector Layer1");
