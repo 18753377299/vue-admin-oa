@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>哭你一起挖</p>
-    <input v-model="msg">
+    <input v-model="msg" >
   </div>
 </template>
 <script>
@@ -9,7 +9,7 @@
     props: ['msg'],
     data () {
       return {
-        msg: ''
+//        msg: ''
       }
     },
     mounted () {},

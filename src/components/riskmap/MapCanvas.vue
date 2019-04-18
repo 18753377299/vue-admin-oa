@@ -5,7 +5,7 @@
         <Button @click="drawDraw">绘制实时台风</Button>
         <Button @click="mapToImg" id="jietu">截图</Button>
         Parent component: <input type="text" v-model="msg" />
-        <TestComponent :msg.sync="msg"></TestComponent>
+        <TestComponent :msg.sync="msg"  ref="first"></TestComponent>
       </div>
       <!--<div>-->
       <!--<canvas id="roundness" width="600" height="300"></canvas>-->
@@ -53,6 +53,7 @@
 
       /**html渲染完成后，才触发*/
       this.msg = '123'
+      console.log(this.$refs.first)
     },
     created () {
       if(this.map.layers){
