@@ -31,6 +31,8 @@
 //        that.demo = e
         //每当str的值改变则发送事件update:msg , 并且把值传过去
         this.$emit('update:msg', e)
+//        路由页面跳转
+//        this.$router.push({path: '/riskcheck_normalInput', query: {riskCheckNo: data.riskCheckNo, editModel: 'browse', checkModel: data.checkModel, returnButtonState: true, reviewedButtonState: false, backButtonState: true, ImageButtonState: true}})
       },
       deep: true
     }

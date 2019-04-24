@@ -10,7 +10,8 @@
         <MySlot>
           <!--属性 slot 值需要与子组件中 slot 的 name 值匹配-->
               <p slot="title">{{ title }}</p>
-          　　<div slot="content">{{ content }}</div>
+          <!--　　<div slot="content">{{ content }}</div>-->
+              <div id="content">{{ content }}</div>
         </MySlot>
       </div>
       <!--<div>-->

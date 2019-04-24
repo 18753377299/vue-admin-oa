@@ -22,6 +22,7 @@ const createLintingRule = () => ({
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
+  // 页面入口文件配置
   entry: {
     vendor: ['./src/assets/js/SuperMap.Include','./src/assets/js/SuperMap_Basic-8.1.1-15523',
       './src/assets/js/SuperMap_Cloud-8.1.1-15523','./src/assets/js/SuperMap_IServer-8.1.1-15523',
@@ -29,9 +30,12 @@ module.exports = {
       './src/assets/js/SuperMap-8.1.1-15523'],
     app: './src/main.js'
   },
+  // 入口文件输出配置
   output: {
-    path: config.build.assetsRoot,
+    path: config.build.assetsRoot,  // 输出目录
     filename: '[name].js',
+    // 设置输出文件名字，此例中为入口文件名字加上
+    // hash 值。使用 hash 值的原因是生成新文件后避免缓存导致用户没有更新到新的 js 文件
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
@@ -94,6 +98,8 @@ module.exports = {
     tls: 'empty',
     child_process: 'empty'
   },
+  // plugins 为 webpack 的插件功能，可利用一些第三方插件完成一些额外的操作
+  // 例如 HtmlWebpackPlugin，这个插件可以帮助生成 HTML 文件，在 body 元素中使用script 来引用 output 中最后输出的 js 文件
   plugins: [
     // 该条如果不删掉，会导致打包不成功
     // new webpack.optimize.CommonsChunkPlugin('common'),
