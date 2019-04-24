@@ -6,6 +6,12 @@
         <Button @click="mapToImg" id="jietu">截图</Button>
         Parent component: <input type="text" v-model="msg" />
         <TestComponent :msg.sync="msg"  ref="first"></TestComponent>
+        <!--使用包含 slot 标签属性的子组件-->
+        <MySlot>
+          <!--属性 slot 值需要与子组件中 slot 的 name 值匹配-->
+              <p slot="title">{{ title }}</p>
+          　　<div slot="content">{{ content }}</div>
+        </MySlot>
       </div>
       <!--<div>-->
       <!--<canvas id="roundness" width="600" height="300"></canvas>-->
@@ -22,9 +28,10 @@
 <script>
   import html2canvas from 'html2canvas'
   import TestComponent from '@/components/common/TestComponent'
+  import MySlot from '@/components/common/MySlot'
   export default {
     components: {
-      TestComponent
+      TestComponent,MySlot
     },
     mounted () {
 //      var layer;
@@ -65,6 +72,10 @@
     },
     data () {
       return {
+        //slot插槽设置内容
+        title : 'This is a title',
+        content : 'This is the content',
+
         msg: '',
         imageUrls: '',
         canvasData: '',
@@ -82,6 +93,12 @@
         url2: 'http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/china_province@areakind',
         LAYER_COUNT: 0,
         LAYER_LENGTH: 0
+      }
+    },
+    events: {
+      'add' : function(msg) {
+         alert(msg)
+        // return true　明确返回 true 后，事件会继续向上冒泡
       }
     },
     methods: {

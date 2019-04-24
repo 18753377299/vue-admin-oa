@@ -2,7 +2,9 @@
   <div>
     <p>哭你一起挖</p>
     <input v-model="msg" >
+    <Button @click="toParent" type="primary">点击</Button>
   </div>
+
 </template>
 <script>
   export default  {
@@ -15,6 +17,12 @@
     mounted () {},
 
     created (){
+    },
+    methods: {
+      toParent (){
+        // 这个是vue1.x
+//        this.$dispatch('add', 'message from child');
+      }
     },
     watch: {
       msg: function(e){
