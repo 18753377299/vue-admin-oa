@@ -17,7 +17,7 @@
       <!--<div>-->
       <!--<canvas id="roundness" width="600" height="300"></canvas>-->
       <!--</div>-->
-      <div id='map' ref="cutScreen" style="margin:0 auto; padding-top: 1px;width: 2000px;height: 1500px"></div>
+      <div id='map' ref="cutScreen" style="margin:0 auto; padding-top: ;width: 2000px;height: 1500px"></div>
       <!--<div>-->
       <!--<div id="curve" style="display: none;">-->
       <!--<div id="content"></div>-->
@@ -38,8 +38,8 @@
 //      var layer;
        var host = window.isLocal ? window.server : "http://support.supermap.com.cn:8090";
 //        url = host + "/iserver/services/map-world/rest/maps/World";
-       var  url="http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/china_province@areakind";
-//      var  url="http://10.10.2.241:8091/iserver/services/map-tianditu/rest/maps/矢量底图_经纬度";
+//       var  url="http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/china_province@areakind";
+      var  url="http://10.10.2.241:8091/iserver/services/map-tianditu/rest/maps/矢量底图_经纬度";
 
         this.vectorLayer = new SuperMap.Layer.Vector("Vector Layer");
 //        this.vectorLayer1 = new SuperMap.Layer.Vector("Vector Layer1");
@@ -444,7 +444,9 @@
         // ArrFQInfo 中十二个数据 表示  7/10/12 级风在不同的方位的风圈半径。
         var Info= {"bj_7":"100-180公里",
           "bj_10": "", "bj_12": "", "fs": 18,"lat": marker.lonlat.lat,"lon": marker.lonlat.lon, "sj": "2018-05-03 20:00","zxqy": 998,
-          "ArrFQInfo":[180, 100, 100, 180, 0, 0, 0, 0, 0, 0, 0, 0]
+//          "ArrFQInfo":[180, 100, 100, 180, 0, 0, 0, 0, 0, 0, 0, 0]
+          "ArrFQInfo":[100, 100, 100, 100, 200, 200, 200, 200, 0, 0, 0, 0]
+//          "ArrFQInfo":[100, 100, 200, 200, 0, 0, 0, 0, 0, 0, 0, 0]
         };
         var strHtml = '<div class="Info_WinCon" style="overflow-x:hidden;overflow-y:auto;">';
         strHtml += "<table name='TFInfo'>";
@@ -548,6 +550,7 @@
         var bj = (parseFloat(ArrFQInfo[i]) * 1000) / dwjl;
 //        ArrColor[i][0]
         var cuvre = SuperMap.Geometry.Polygon.createRegularPolygonCurve(origion, bj, sides, 90, ArrColor[i][0]);
+//        var cuvre = SuperMap.Geometry.Polygon.createRegularPolygonCurve(origion, bj, sides, 90, ArrColor[i][0]);
 //        let data = {geometry: geometry, address:this.address, sumAmount:this.sumAmount,policyno:this.policyno,
 //          MapCode:this.MapCode, nowdate:this.nowdate, powerSQL:this.powerSQL, sumPay: this.sumPay}
         var cuvreVector = new SuperMap.Feature.Vector(cuvre);
@@ -602,14 +605,16 @@
       }
     }
     let data = {geometrys: geometrys }
-    this.axios.post('/riskcontrol/file/fileGeometrist',data).then((response)=>{
+//    this.axios.post('/riskcontrol/file/fileGeometrist',data).then((response)=>{
+    this.axios.post('/riskcontrol/file/returnGeometrist',data).then((response)=>{
       console.log('you are right!')
       console.log(response)
       // 将后台传到前台的面数据添加到地图上
       var  geometry =new SuperMap.Format.GeoJSON().read(response.data.result,'Geometry')
       console.log(geometry)
       var style = {
-        strokeColor:"#339933",
+//        strokeColor:"#339933",
+        strokeColor:"#ee9900",
         strokeOpacity:1,
         strokeWidth:3,
         pointRadius:6

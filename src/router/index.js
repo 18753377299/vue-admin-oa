@@ -10,6 +10,7 @@ import Login from '@/components/common/Login'
 import map from '@/components/riskmap/map'
 import maptf from '@/components/riskmap/MapTF'
 import mapcanvas from  '@/components/riskmap/MapCanvas'
+import mappt from  '@/components/riskmap/mapPointTogether'
 
 Vue.use(Router)
 
@@ -76,6 +77,12 @@ const routes =  [
     path: '/mapcan',
     name: 'mapcan',
     component: mapcanvas,
+    children:[]
+  },
+  {
+    path: '/mappt',
+      name: 'mappt',
+    component: mappt,
     children:[]
   }
 
