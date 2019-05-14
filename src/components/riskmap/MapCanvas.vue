@@ -6,6 +6,8 @@
         <Button @click="mapToImg" id="jietu">截图</Button>
         Parent component: <input type="text" v-model="msg" />
         <TestComponent :msg.sync="msg"  ref="first"></TestComponent>
+        <template1>组件1</template1>
+        <template2>组件2</template2>
         <!--使用包含 slot 标签属性的子组件-->
         <MySlot>
           <!--属性 slot 值需要与子组件中 slot 的 name 值匹配-->
@@ -30,9 +32,12 @@
   import html2canvas from 'html2canvas'
   import TestComponent from '@/components/common/TestComponent'
   import MySlot from '@/components/common/MySlot'
+  import template1 from '@/components/mixinsTest/template1'
+  import template2 from '@/components/mixinsTest/template2'
+
   export default {
     components: {
-      TestComponent,MySlot
+      TestComponent,MySlot,template1,template2
     },
     mounted () {
 //      var layer;
@@ -606,7 +611,7 @@
     }
     let data = {geometrys: geometrys }
 //    this.axios.post('/riskcontrol/file/fileGeometrist',data).then((response)=>{
-    this.axios.post('/riskcontrol/file/returnGeometrist',data).then((response)=>{
+    this.axios.post('/riskcontrol/demo/returnGeometrist',data).then((response)=>{
       console.log('you are right!')
       console.log(response)
       // 将后台传到前台的面数据添加到地图上
