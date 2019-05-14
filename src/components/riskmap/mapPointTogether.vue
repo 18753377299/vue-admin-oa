@@ -108,7 +108,7 @@
         });
         //将控件添加到map上
         this.map.addControl(this.select);
-        this.map.setCenter(new SuperMap.LonLat(116, 39), 2)
+        this.map.setCenter(new SuperMap.LonLat(116, 39), 1)
 //        //激活控件。
 //        select.activate();
 //        //往聚散图层中添加兴趣点
@@ -121,15 +121,35 @@
         this.select.activate();
         //往聚散图层中添加兴趣点
         // 	var fs1 = getFeatures();
-        var fs1 =this.getInfo();
-        this.clusterLayer.addFeatures(fs1);
+//        var fs1 =this.getInfo();
+//        this.clusterLayer.addFeatures(fs1);
+        this.operateInfo()
       },
       operateInfo(){
         this.axios.post('/riskcontrol/file/operatePointInfo').then((response)=>{
           console.log('you are right!')
           console.log(response)
           // 将后台传到前台的面数据添加到地图上
-
+          var ps = [];
+          if(response.data.result!==null&&response.data.result.length>0){
+            for(var i=0;i<response.data.result.length;i++){
+              var f = new SuperMap.Feature.Vector();//4597
+              f.geometry = new SuperMap.Geometry.Point(response.data.result[i].pointx_2000,
+                    response.data.result[i].pointy_2000);
+              f.style = {
+                pointRadius: 4,
+                graphic:true,
+                externalGraphic:"",
+                // 				externalGraphic:"../theme/images/aaa.png",
+                graphicWidth:12,
+                graphicHeight:12
+              };
+              f.samount = 10
+              ps.push(f);
+            }
+            this.clusterLayer.addFeatures(ps)
+            this.map.setCenter(new SuperMap.LonLat(116, 39), 0)
+          }
         }).catch((response)=>{
           console.log(response)
         })
@@ -158,15 +178,14 @@
         var center = bounds.getCenterLonLat();
         var contentHTML = "<div style='font-size:.8em; opacity: 0.8; overflow-y:hidden;'>";
 // 		contentHTML += "<div>"+feature.info.name+"</div></div>";
-
         contentHTML += "<div>"+"aaa"+"</div></div>";
 
         var popup = new SuperMap.Popup.FramedCloud("popwin",
-          new SuperMap.LonLat(center.lon,center.lat),
-          null,
-          contentHTML,
-          null,
-          true);
+           new SuperMap.LonLat(center.lon,center.lat),
+           null,
+           contentHTML,
+           null,
+           true);
 
         feature.popup = popup;
         this.infowin = popup;
