@@ -504,6 +504,8 @@
     Marker.events.on({
       "mouseout": function (e) {
 //         $("#Prop_Info").hide();
+        console.log('mouseout')
+        console.log(_selfMarker.vectorLayer)
       }
     });
     this.markerLayer.addMarker(Marker);
@@ -529,6 +531,7 @@
   },
   DrawSector(ArrFQInfo, Point) {
     this.vector.removeAllFeatures();
+    this.vectorLayer.removeAllFeatures();
     var ArrColor = [
       [0, 90, "#00B00F",0.8, "#00B00F",0.3,"七级风圈半径","东北","lb"],
       [90, 180, "#00B00F", 0.8, "#00B00F", 0.3, "", "东南", "rb"],
@@ -601,17 +604,18 @@
         }
         var  geometry =new SuperMap.Format.GeoJSON().write(cuvreVector.geometry,false)
         geometrys.push(geometry)
-        console.log("cuvreVector图层");
+//        console.log("cuvreVector图层");
         console.log(cuvreVector);
         this.vectorLayer.addFeatures([cuvreVector]);
         // 图层
-        console.log("vectorLayer图层");
+//        console.log("vectorLayer图层");
         console.log(this.vectorLayer);
       }
     }
     let data = {geometrys: geometrys }
 //    this.axios.post('/riskcontrol/file/fileGeometrist',data).then((response)=>{
-    this.axios.post('/riskcontrol/demo/returnGeometrist',data).then((response)=>{
+//    this.axios.post('/riskcontrol/file/returnGeometrist',data).then((response)=>{
+    this.axios.post('/riskcontrol/file/returnGeometrist').then((response)=>{
       console.log('you are right!')
       console.log(response)
       // 将后台传到前台的面数据添加到地图上

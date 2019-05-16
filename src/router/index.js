@@ -11,6 +11,8 @@ import map from '@/components/riskmap/map'
 import maptf from '@/components/riskmap/MapTF'
 import mapcanvas from  '@/components/riskmap/MapCanvas'
 import mappt from  '@/components/riskmap/mapPointTogether'
+import mapfq from  '@/components/riskmap/MapFQ'
+
 
 Vue.use(Router)
 
@@ -83,6 +85,12 @@ const routes =  [
     path: '/mappt',
       name: 'mappt',
     component: mappt,
+    children:[]
+  },
+  {
+    path: '/mapfq',
+    name: 'mapfq',
+    component: mapfq,
     children:[]
   }
 

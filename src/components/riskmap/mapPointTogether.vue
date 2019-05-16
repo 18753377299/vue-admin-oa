@@ -121,8 +121,8 @@
         this.select.activate();
         //往聚散图层中添加兴趣点
         // 	var fs1 = getFeatures();
-//        var fs1 =this.getInfo();
-//        this.clusterLayer.addFeatures(fs1);
+        var fs1 =this.getInfo();
+        this.clusterLayer.addFeatures(fs1);
         this.operateInfo()
       },
       operateInfo(){
@@ -180,12 +180,24 @@
 // 		contentHTML += "<div>"+feature.info.name+"</div></div>";
         contentHTML += "<div>"+"aaa"+"</div></div>";
 
-        var popup = new SuperMap.Popup.FramedCloud("popwin",
-           new SuperMap.LonLat(center.lon,center.lat),
-           null,
-           contentHTML,
-           null,
-           true);
+        let offset = new SuperMap.Pixel(10, -25)
+//        let size = new SuperMap.Size(-300, -300)
+//        let offset = new SuperMap.Pixel(-(size.w / 2), -size.h)
+        let dhIcon = new SuperMap.Icon(null, null, offset)
+        let popup = new SuperMap.Popup.FramedCloud("popwin2", // 初始化一个带箭头指向和边框的浮动弹窗。
+          new SuperMap.LonLat(center.lon,center.lat),
+          null,
+          contentHTML,
+          dhIcon,
+          true,
+          null,
+          true);
+//        var popup = new SuperMap.Popup.FramedCloud("popwin",
+//           new SuperMap.LonLat(center.lon,center.lat),
+//           null,
+//           contentHTML,
+//           null,
+//           true);
 
         feature.popup = popup;
         this.infowin = popup;
