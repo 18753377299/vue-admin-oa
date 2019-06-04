@@ -92,9 +92,12 @@
         markerLayer: '',
         markerLayer1: '',
         pointArray:[
-          ["117.190182","39.125596"],
-          ["114.502461","38.045474"],
-          ["112.549248","37.857014"]
+          ["165.3","12.9"],
+          ["163.8","13"],
+          ["144.9","14.2"],
+          ["116.8","19.8"],
+          ["110.3","22.3"],
+          ["106.6","24"]
         ],
         url2: 'http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/china_province@areakind',
         LAYER_COUNT: 0,
@@ -233,7 +236,6 @@
         if(layer.style){
           printLayer.style = layer.style;
         }
-
         printLayer.setOpacity(0);
         printLayer.addFeatures(features1);
 
@@ -621,13 +623,21 @@
       // 将后台传到前台的面数据添加到地图上
       var  geometry =new SuperMap.Format.GeoJSON().read(response.data.result,'Geometry')
       console.log(geometry)
-      var style = {
-//        strokeColor:"#339933",
+      let style = {
+        fillColor: "#ee9900",
+        fillOpacity: 0.4,
         strokeColor:"#ee9900",
-        strokeOpacity:1,
-        strokeWidth:3,
-        pointRadius:6
+        strokeOpacity: 0.4,
+        strokeWidth: 1
+//               pointRadius:6
       }
+//      var style = {
+////        strokeColor:"#339933",
+//        strokeColor:"#ee9900",
+//        strokeOpacity:1,
+//        strokeWidth:3,
+//        pointRadius:6
+//      }
       var feature = new SuperMap.Feature.Vector(geometry,null,style);
       this.vectorLayer.addFeatures([feature]);
     }).catch((response)=>{
