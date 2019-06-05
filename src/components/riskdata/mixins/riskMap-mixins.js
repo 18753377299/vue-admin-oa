@@ -16,6 +16,9 @@ export default {
       var Marker = new SuperMap.Marker(lonlat, myIcon);
       this.markerLayer.addMarker(Marker);
     },
+    drawSHDraw(){
+      this.LSLJ_DrawPathSH(0, 0);
+    },
     LSLJ_DrawPathSH(xh,pathxh) {
 //     var tb	="/Vue/WebContent/supermap/scripts/pot_8.png";
 //    var tb	="scripts/pot_8.png"

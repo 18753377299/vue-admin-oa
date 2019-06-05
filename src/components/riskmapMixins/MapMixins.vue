@@ -74,9 +74,6 @@
         this.map.addLayers([layer,this.vectorLayer,this.typhoonFQLayer,this.markerLayer,this.markerLayer1,this.vector])
         // 显示地图范围
         this.map.setCenter(new SuperMap.LonLat(116, 39), 4)
-      },
-      drawSHDraw(){
-        this.LSLJ_DrawPathSH(0, 0);
       }
     }
   }
