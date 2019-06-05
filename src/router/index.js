@@ -12,6 +12,7 @@ import maptf from '@/components/riskmap/MapTF'
 import mapcanvas from  '@/components/riskmap/MapCanvas'
 import mappt from  '@/components/riskmap/mapPointTogether'
 import mapfq from  '@/components/riskmap/MapFQ'
+import mapmix from  '@/components/riskmapMixins/MapMixins'
 
 
 Vue.use(Router)
@@ -92,7 +93,14 @@ const routes =  [
     name: 'mapfq',
     component: mapfq,
     children:[]
+  },
+  {
+    path: '/mapmix',
+    name: 'mapmix',
+    component: mapmix,
+    children:[]
   }
+
 
 ]
 
