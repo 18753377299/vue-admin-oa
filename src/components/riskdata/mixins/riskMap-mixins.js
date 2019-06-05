@@ -3,5 +3,8 @@ export default {
     return {
       num: 1
     }
+  },
+  methods: {
+
   }
 }
