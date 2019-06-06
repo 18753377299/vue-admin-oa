@@ -4,15 +4,19 @@
       <div>
         <Button @click="drawSHDraw">绘制实时台风</Button>
         <Button @click="addTFMarker">打点</Button>
+        <Button @click="generateReportSH">截图</Button>
       </div>
       <div id='map' ref="cutScreen" style="margin:0 auto; padding-top: ;width: 2000px;height: 1500px"></div>
     </Card>
   </div>
 </template>
 <script>
-  import riskmapmixins from '@/components/riskdata/mixins/riskMap-mixins.js'
+  // 绘制实时台风
+  import riskmapmixins from '@/components/riskdata/mixins/riskMap-mixins'
+  // 进行截图
+  import riskMapPrintPicture from '@/components/riskdata/mixins/riskMapPrintPicture'
   export default {
-    mixins:[riskmapmixins],
+    mixins:[riskmapmixins,riskMapPrintPicture],
     components: {
     },
     mounted () {

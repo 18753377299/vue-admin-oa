@@ -219,8 +219,6 @@ export default {
           }
           var  geometry =new SuperMap.Format.GeoJSON().write(cuvreVector.geometry,false)
           geometrys.push(geometry)
-//        console.log("cuvreVector图层");
-          console.log(cuvreVector);
           this.typhoonFQLayer.addFeatures([cuvreVector]);
         }
       }

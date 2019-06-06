@@ -112,7 +112,8 @@
     methods: {
       mapToImg() {
 //        MapToImg&&MapToImg.excute(this.map);
-        this.printMapExecute()
+//        this.printMapExecute()
+        this.printMapExecuteSH()
       },
       printMapExecute(){
         var canvas = document.createElement("canvas");
