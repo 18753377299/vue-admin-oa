@@ -1,7 +1,7 @@
+
 export default {
   data (){
     return {
-      num: 1
     }
   },
   methods: {
@@ -222,35 +222,50 @@ export default {
           this.typhoonFQLayer.addFeatures([cuvreVector]);
         }
       }
-      let data = {geometrys: geometrys }
-//    this.axios.post('/riskcontrol/file/fileGeometrist',data).then((response)=>{
-//    this.axios.post('/riskcontrol/file/returnGeometrist',data).then((response)=>{
-      this.axios.post('/riskcontrol/file/returnGeometrist').then((response)=>{
-        console.log('you are right!')
-        console.log(response)
-        // 将后台传到前台的面数据添加到地图上
-        var  geometry =new SuperMap.Format.GeoJSON().read(response.data.result,'Geometry')
-        console.log(geometry)
-        let style = {
-          fillColor: "#ee9900",
-          fillOpacity: 0.4,
-          strokeColor:"#ee9900",
-          strokeOpacity: 0.4,
-          strokeWidth: 1
+
+      var  geometry =new SuperMap.Format.GeoJSON().read(this.riskMapPolygon,'Geometry')
+      let style = {
+        fillColor: "#ee9900",
+        // fillOpacity: 0.4,
+        fillOpacity: 1,
+        strokeColor:"#ee9900",
+        strokeOpacity: 0.4,
+        strokeWidth: 1
 //               pointRadius:6
-        }
-//      var style = {
-////        strokeColor:"#339933",
-//        strokeColor:"#ee9900",
-//        strokeOpacity:1,
-//        strokeWidth:3,
-//        pointRadius:6
-//      }
-        var feature = new SuperMap.Feature.Vector(geometry,null,style);
-        this.vectorLayer.addFeatures([feature]);
-      }).catch((response)=>{
-        console.log(response)
-      })
+      }
+      var feature = new SuperMap.Feature.Vector(geometry,null,style);
+      this.vectorLayer.addFeatures([feature]);
+
+//       let data = {geometrys: geometrys }
+// //    this.axios.post('/riskcontrol/file/returnGeometrist',data).then((response)=>{
+//       this.axios.post('/riskcontrol/file/returnGeometrist').then((response)=>{
+//         console.log('you are right!')
+//         console.log(response)
+//         // 将后台传到前台的面数据添加到地图上
+//         var  geometry =new SuperMap.Format.GeoJSON().read(response.data.result,'Geometry')
+//         console.log(geometry)
+//         let style = {
+//           fillColor: "#ee9900",
+//           // fillOpacity: 0.4,
+//           fillOpacity: 1,
+//           strokeColor:"#ee9900",
+//           strokeOpacity: 0.4,
+//           strokeWidth: 1
+// //               pointRadius:6
+//         }
+// //      var style = {
+// ////        strokeColor:"#339933",
+// //        strokeColor:"#ee9900",
+// //        strokeOpacity:1,
+// //        strokeWidth:3,
+// //        pointRadius:6
+// //      }
+//         var feature = new SuperMap.Feature.Vector(geometry,null,style);
+//         this.vectorLayer.addFeatures([feature]);
+//       }).catch((response)=>{
+//         console.log(response)
+//       })
+
     },
     //计算两个经纬度坐标之间的距离
     GetDistanceSH(lng1, lat1, lng2, lat2) {

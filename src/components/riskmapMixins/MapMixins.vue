@@ -13,6 +13,7 @@
 <script>
   // 绘制实时台风
   import riskmapmixins from '@/components/riskdata/mixins/riskMap-mixins'
+  import riskMapPolygon from '@/components/riskdata/riskMapPolygon'
   // 进行截图
   import riskMapPrintPicture from '@/components/riskdata/mixins/riskMapPrintPicture'
   export default {
@@ -23,7 +24,7 @@
 //      var layer;
        var host = window.isLocal ? window.server : "http://support.supermap.com.cn:8090";
 //     url = host + "/iserver/services/map-world/rest/maps/World";
-//     var  url="http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/china_province@areakind";
+//       var  url="http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/china_province@areakind";
        var  url="http://10.10.2.241:8091/iserver/services/map-tianditu/rest/maps/矢量底图_经纬度";
       this.vectorLayer = new SuperMap.Layer.Vector("Vector Layer");
       this.typhoonFQLayer = new SuperMap.Layer.Vector("VectorFQLayer");
@@ -52,6 +53,7 @@
     },
     data () {
       return {
+        riskMapPolygon: riskMapPolygon,
         msg: '',
         imageUrls: '',
         canvasData: '',

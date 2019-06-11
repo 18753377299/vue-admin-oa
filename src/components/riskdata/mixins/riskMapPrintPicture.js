@@ -17,11 +17,11 @@ export  default {
             strategies.push(layerStrategies[i]);
           }
         }
-        // printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", {strategies: strategies, visibility: true, renderers: ["Canvas"]});
-        printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", {strategies: strategies,renderers: ["Canvas"]});
+        printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", {strategies: strategies, visibility: true, renderers: ["Canvas"]});
+        // printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", {strategies: strategies,renderers: ["Canvas"]});
       }else{
-        // printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", {visibility: true, renderers: ["Canvas"]});
-        printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", { renderers: ["Canvas"]});
+        printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", {visibility: true, renderers: ["Canvas"]});
+        // printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", { renderers: ["Canvas"]});
       }
       map.addLayer(printLayer);
       for(let j=0;j<features.length;j++){
