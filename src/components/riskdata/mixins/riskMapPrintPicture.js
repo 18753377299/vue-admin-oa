@@ -1,3 +1,4 @@
+// 地图截图方法
 export  default {
   methods:{
     // 地图截图方法
@@ -17,11 +18,12 @@ export  default {
             strategies.push(layerStrategies[i]);
           }
         }
-        printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", {strategies: strategies, visibility: true, renderers: ["Canvas"]});
-        // printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", {strategies: strategies,renderers: ["Canvas"]});
+        /** 截图问题解决方式，将Canvas 换为Canvas2 即可*/
+        printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", {strategies: strategies, visibility: true, renderers: ["Canvas2"]});
+        // printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", {strategies: strategies,renderers: ["Canvas2"]});
       }else{
-        printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", {visibility: true, renderers: ["Canvas"]});
-        // printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", { renderers: ["Canvas"]});
+        printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", {visibility: true, renderers: ["Canvas2"]});
+        // printLayer = new SuperMap.Layer.Vector("PRINT_LAYER", { renderers: ["Canvas2"]});
       }
       map.addLayer(printLayer);
       for(let j=0;j<features.length;j++){

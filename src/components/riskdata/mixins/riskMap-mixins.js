@@ -1,4 +1,4 @@
-
+/** 实时台风*/
 export default {
   data (){
     return {
@@ -226,8 +226,8 @@ export default {
       var  geometry =new SuperMap.Format.GeoJSON().read(this.riskMapPolygon,'Geometry')
       let style = {
         fillColor: "#ee9900",
-        // fillOpacity: 0.4,
-        fillOpacity: 1,
+        fillOpacity: 0.4,
+        // fillOpacity: 1,
         strokeColor:"#ee9900",
         strokeOpacity: 0.4,
         strokeWidth: 1
