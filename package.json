@@ -19,6 +19,7 @@
     "sass-loader": "^7.1.0",
     "save": "^2.3.3",
     "vue": "^2.5.2",
+    "vue-accordion-menu": "^0.1.46",
     "vue-axios": "^2.1.4",
     "vue-cookies": "^1.5.13",
     "vue-router": "^3.0.1"

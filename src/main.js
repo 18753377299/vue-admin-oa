@@ -12,6 +12,8 @@ Vue.use(VueAxios,axios)
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 Vue.use(iView);
+import VueAccordionMenu from 'vue-accordion-menu'
+Vue.use(VueAccordionMenu)
 
 // import './assets/styles/layout/layout.less' // 引入布局样式
 // import './assets/styles/base/base.less' // 全局变量

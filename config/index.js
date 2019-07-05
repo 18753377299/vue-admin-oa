@@ -28,7 +28,11 @@ module.exports = {
       //   target: 'http://11.205.243.197:18020',
       //   changeOrigin: true,
       // },
-
+      '/MavenSSM': {
+        // target: 'http://192.168.2.102:18020',
+        target: 'http://11.205.243.67:8031',
+        changeOrigin: true,
+      },
       // 通过配置nginx进行监听
       '/riskcontrol': {
         // target: 'http://192.168.2.101:8017',

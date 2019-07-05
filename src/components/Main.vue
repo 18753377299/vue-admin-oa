@@ -1,16 +1,16 @@
 <template>
   <div class="layout">
     <Layout :style="{minHeight: '100vh'}">
-      <Sider collapsible :collapsed-width="78" v-model="isCollapsed">
-        <Menu  :active-name="1" theme="dark" width="auto" :accordion="true" :class="menuitemClasses">
-
+      <Sider :collapsible="true" :collapsed-width="78" v-model="isCollapsed">
+        <Menu  theme="dark" width="auto" :accordion="true" :active-name="1" :class="menuitemClasses" >
           <div v-for="(item,index) in menuList">
-            <Submenu name="index">
+            <Submenu name="index"  v-if="item.children&& !item.hidden">
               <template slot="title">
                 <Icon type="ios-filing" />
                 {{item.name}}
               </template>
-              <MenuItem name="indexc" :to="child.path" v-for="(child,indexc) in item.children">
+              <MenuItem name="child.path" :key="indexc" :to="child.path" v-for="(child,indexc) in item.children" >
+                <!--<i class="icon iconfont " :class="sub.icon ? sub.icon : 'icon-collection'"></i>-->
                   {{child.name}}
               </MenuItem>
             </Submenu>
@@ -28,7 +28,7 @@
           <Card>
             <div style="height: 600px">
               <router-view/>
-              <!--<Button type="primary" @click="getNewsList">点击</Button>-->
+              <!--<Button type="primary" @click="">点击</Button>-->
             </div>
           </Card>
         </Content>
@@ -56,7 +56,7 @@
     },
     created () {
         console.log('created')
-        console.log(menuList)
+//        console.log(menuList)
     },
     methods: {
 

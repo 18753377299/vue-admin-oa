@@ -13,7 +13,9 @@
             <Row>
               <Col span="8">
               <FormItem label="被保险人：" prop="insuredName">
+
                 <Input type="text" v-model="riskCheckMainVo.insuredName"></Input>
+                {{123.35 | numFilter}}&nbsp;&nbsp; {{money}}
               </FormItem>
               </Col>
               <Col span="8">
@@ -138,6 +140,7 @@
   export default {
     data (){
       return {
+        money: '345.23000',
         totalCount:'',
         pageSize: 5,
         pageNo: 1,
@@ -147,10 +150,21 @@
         riskCheckMainVo: {
           insuredName: '',
           riskName: ''
+        },
+        emp: {
+          empName: 'zhangsan'
         }
       }
     },
-    created(){},
+    created(){
+//      this.money = parseFloat(this.money).toFixed(4)
+    },
+    filters:{
+      numFilter(value){
+         let realValue = parseFloat(value).toFixed(3)
+         return realValue
+      }
+    },
     methods:{
       changeRiskName(){
         this.riskCheckMainVo.riskName = ''
@@ -183,6 +197,11 @@
 //          this.showFlag = true
 //          this.riskInfoClaimList=response.data.result;
 //          this.totalCount = response.data.totalCount
+        }).catch((response)=>{
+          console.log(response)
+        })
+        this.axios.post('/MavenSSM/into/testJdbcTemplate',this.emp).then((response)=>{
+          console.log('you are right!')
         }).catch((response)=>{
           console.log(response)
         })
