@@ -4,7 +4,7 @@
       <Card>
         <div class="title">
           <Icon type="search"></Icon>
-          典型案例分析
+          典型案例分析2222
         </div>
         <div >
           <!--v-show="selectShowFlag"-->

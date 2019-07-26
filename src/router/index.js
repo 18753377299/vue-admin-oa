@@ -23,17 +23,17 @@ const routes =  [
     name: 'Main',
     component: Home,
     children: [
-      {
-        path: '/riskinfo',
-        name: 'LeaveSearch',
-        component: LeaveSearch,
-        icon: 'icon-wujiaoxing',
-        level: 1,
-        meta: {
-          requiresAuth: true, // 是否需要登录
-          search: false // 是否可搜索
-        }
-      },
+      // {
+      //   path: '/riskinfo',
+      //   name: 'LeaveSearch',
+      //   component: LeaveSearch,
+      //   icon: 'icon-wujiaoxing',
+      //   level: 1,
+      //   meta: {
+      //     requiresAuth: true, // 是否需要登录
+      //     search: false // 是否可搜索
+      //   }
+      // },
       {
         path: '/RiskInfoClaimQuery',
         name: '典型案例分析',
@@ -43,19 +43,37 @@ const routes =  [
         meta: {
           requiresAuth: true, // 是否需要登录
           search: false // 是否可搜索
-        }
+        },
+        children: [
+          {
+            path: '/riskinfo',
+            name: 'LeaveSearch',
+            component: LeaveSearch
+          },
+          {
+            path: '/RiskCheckMainQuery',
+            name: '风控巡检查询',
+            component: RiskCheckMainQuery,
+            icon: 'icon-wujiaoxing',
+            level: 1,
+            meta: {
+              requiresAuth: true, // 是否需要登录
+              search: false // 是否可搜索
+            }
+          }
+        ]
       },
-      {
-        path: '/RiskCheckMainQuery',
-        name: '风控巡检查询',
-        component: RiskCheckMainQuery,
-        icon: 'icon-wujiaoxing',
-        level: 1,
-        meta: {
-          requiresAuth: true, // 是否需要登录
-          search: false // 是否可搜索
-        }
-      }
+      // {
+      //   path: '/RiskCheckMainQuery',
+      //   name: '风控巡检查询',
+      //   component: RiskCheckMainQuery,
+      //   icon: 'icon-wujiaoxing',
+      //   level: 1,
+      //   meta: {
+      //     requiresAuth: true, // 是否需要登录
+      //     search: false // 是否可搜索
+      //   }
+      // }
     ]
   },
   {

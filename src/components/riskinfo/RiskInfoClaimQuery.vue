@@ -6,6 +6,14 @@
           <Icon type="search"></Icon>
           典型案例分析
         </div>
+        <div>
+          <router-link to="riskinfo">aaa</router-link>
+          <router-link to="RiskCheckMainQuery">map</router-link>
+        </div>
+        <div>
+        <!-- 路由匹配到的组件将渲染在这里 -->
+        <router-view></router-view>
+      </div>
         <div >
           <!--v-show="selectShowFlag"-->
           <Form ref="riskInfoClaimVo"  :rules="ruleValidate"  :model="riskInfoClaimVo" label-position="right" class="form1" :label-width="140">
