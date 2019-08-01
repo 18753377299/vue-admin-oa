@@ -19,7 +19,7 @@
        var host = window.isLocal ? window.server : "http://support.supermap.com.cn:8090";
 //        url = host + "/iserver/services/map-world/rest/maps/World";
 //       var  url="http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/china_province@areakind";
-      var  url="http://10.10.2.241:8091/iserver/services/map-tianditu/rest/maps/矢量底图_经纬度";
+      var  url="http://10.10.2.242:8091/iserver/services/map-tianditu/rest/maps/矢量底图_经纬度";
         this.vectorLayer = new SuperMap.Layer.Vector("Vector Layer");
 //        this.vectorLayer1 = new SuperMap.Layer.Vector("Vector Layer1");
         this.vector = new SuperMap.Layer.Vector("Vector");

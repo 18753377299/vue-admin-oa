@@ -13,6 +13,8 @@ import mapcanvas from  '@/components/riskmap/MapCanvas'
 import mappt from  '@/components/riskmap/mapPointTogether'
 import mapfq from  '@/components/riskmap/MapFQ'
 import mapmix from  '@/components/riskmapMixins/MapMixins'
+import computedTest from  '@/components/myTest/ComputedTest'
+import WatchTest from  '@/components/myTest/WatchTest.vue'
 
 
 Vue.use(Router)
@@ -117,7 +119,20 @@ const routes =  [
     name: 'mapmix',
     component: mapmix,
     children:[]
+  },
+  {
+    path: '/comp',
+    name: 'comp',
+    component: computedTest,
+    children:[]
+  },
+  {
+    path: '/wat',
+    name: 'wat',
+    component: WatchTest,
+    children:[]
   }
+
 
 
 ]
