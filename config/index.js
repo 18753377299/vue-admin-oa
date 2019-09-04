@@ -34,11 +34,17 @@ module.exports = {
         changeOrigin: true,
       },
       // 通过配置nginx进行监听
+      // '/riskcontrol': {
+      //   // target: 'http://192.168.2.101:8017',
+      //   target: 'http://11.205.243.67:8017',
+      //   changeOrigin: true
+      // },
+      // 直接访问路径
       '/riskcontrol': {
         // target: 'http://192.168.2.101:8017',
-        target: 'http://11.205.243.67:8017',
+        target: 'http://11.205.243.67:8022',
         changeOrigin: true
-      }
+      },
     },
 
     // Various Dev Server settings

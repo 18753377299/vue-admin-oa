@@ -281,7 +281,73 @@ export default {
     },
     radSH(d) {
       return d * Math.PI / 180.0;
+    },
+    // 显示栅格数据
+    showGridData(){
+            let data = {geometrys: geometrys }
+//    this.axios.post('/riskcontrol/file/returnGeometrist',data).then((response)=>{
+      this.axios.post('/riskcontrol/riskmap/testMapWarn?clearingFlag=1').then((response)=>{
+        console.log('you are right!')
+        console.log(response)
+        // 将后台传到前台的面数据添加到地图上
+        var  geometry =new SuperMap.Format.GeoJSON().read(response.data.result,'Geometry')
+        console.log(geometry)
+        let style = {
+          fillColor: "#ee9900",
+          // fillOpacity: 0.4,
+          fillOpacity: 1,
+          strokeColor:"#ee9900",
+          strokeOpacity: 0.4,
+          strokeWidth: 1
+//               pointRadius:6
+        }
+//      var style = {
+////        strokeColor:"#339933",
+//        strokeColor:"#ee9900",
+//        strokeOpacity:1,
+//        strokeWidth:3,
+//        pointRadius:6
+//      }
+        var feature = new SuperMap.Feature.Vector(geometry,null,style);
+        this.vectorLayer.addFeatures([feature]);
+      }).catch((response)=>{
+        console.log(response)
+      })
+    },
+    // 切换专题图
+    changeState() {
+//        $('.specialbox').css('height', '218px')
+      var _mySelf = this
+
+      let data =  {'dtname': 'surf ', 'dsname': 'china', 'dangerValue': '',
+        'dangerName': '暴雨综合风险', 'dangerEname': false, 'dangerSlider': 0,
+        'dangerUrl': 'http://10.10.2.241:8091/iserver/services/map-riskcontrol_freeze/rest/maps/surf', 'themeLayer': ''}
+
+      // let data =  {'dtname': 'rain_hazard_scale_1km ', 'dsname': 'china', 'dangerValue': '',
+      //   'dangerName': '暴雨综合风险', 'dangerEname': false, 'dangerSlider': 0,
+      //   'dangerUrl': 'http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/rain_hazard_scale_1km@china', 'themeLayer': ''}
+
+      if (!data.dangerEname) {
+        data.themeLayer = new SuperMap.Layer.TiledDynamicRESTLayer(data.dtname, data.dangerUrl, {
+          transparent: true,
+          cacheEnabled: true
+        },{ maxResolution: "auto" , useCanvas:false,useCORS:true});
+        data.themeLayer.events.on({
+          "layerInitialized": function (evt) {
+            _mySelf.map.addLayers([data.themeLayer])
+            // 每添加一个专题图  地震图层往上移一层
+            // _mySelf.map.raiseLayer(_mySelf.riskMapData.EarthQuakeLayer, 1)
+            // 地图初始的透明度和进度条的表示长度
+            data.themeLayer.setOpacity(0.5)
+            data.dangerSlider = 5
+          }
+        })
+      } else {
+        this.map.removeLayer(data.themeLayer)
+        data.dangerSlider = 0
+      }
     }
+
 
   }
 }

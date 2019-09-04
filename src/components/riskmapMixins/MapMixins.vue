@@ -5,8 +5,10 @@
         <Button @click="drawSHDraw">绘制实时台风</Button>
         <Button @click="addTFMarker">打点</Button>
         <Button @click="generateReportSH">截图</Button>
+        <Button @click="showGridData">显示栅格</Button>
+        <Button @click="changeState">显示专题图</Button>
       </div>
-      <div id='map' ref="cutScreen" style="margin:0 auto; padding-top: ;width: 2000px;height: 1500px"></div>
+      <div id='map' ref="cutScreen" style="margin:0 auto; padding-top: 10px;width: 2000px;height: 1500px"></div>
     </Card>
   </div>
 </template>
@@ -37,7 +39,9 @@
       this.map = new SuperMap.Map("map", {
         controls: [
           new SuperMap.Control.Navigation(),
-          new SuperMap.Control.Zoom()]
+          new SuperMap.Control.Zoom()],
+        // 需要多个图层的时候需要添加
+        allOverlays: true
       })
       this.map.addControl(new SuperMap.Control.MousePosition())
       // 初始化图层
@@ -47,7 +51,7 @@
 
       /**html渲染完成后，才触发*/
       this.msg = '123'
-      console.log(this.$refs.first)
+//      console.log(this.$refs.first)
     },
     created () {
     },
@@ -77,7 +81,7 @@
     methods: {
       addLayerSH(layer) {
 //        this.map.addLayers([this.layer,this.markerLayer])
-        this.map.addLayers([layer,this.vectorLayer,this.typhoonFQLayer,this.markerLayer,this.markerLayer1,this.vector])
+        this.map.addLayers([layer, this.vectorLayer, this.typhoonFQLayer, this.markerLayer, this.markerLayer1, this.vector])
         // 显示地图范围
         this.map.setCenter(new SuperMap.LonLat(116, 39), 4)
       }
