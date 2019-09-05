@@ -7,6 +7,7 @@
         <Button @click="generateReportSH">截图</Button>
         <Button @click="showGridData">显示栅格</Button>
         <Button @click="changeState">显示专题图</Button>
+        <Button @click="addPolygon">添加面数据</Button>
       </div>
       <div id='map' ref="cutScreen" style="margin:0 auto; padding-top: 10px;width: 2000px;height: 1500px"></div>
     </Card>
@@ -15,7 +16,9 @@
 <script>
   // 绘制实时台风
   import riskmapmixins from '@/components/riskdata/mixins/riskMap-mixins'
+  // 面数据
   import riskMapPolygon from '@/components/riskdata/riskMapPolygon'
+  import riskMapRainYJPolygon from '@/components/riskdata/riskMapRainYJPolygon'
   // 进行截图
   import riskMapPrintPicture from '@/components/riskdata/mixins/riskMapPrintPicture'
   export default {
@@ -29,6 +32,9 @@
 //       var  url="http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/china_province@areakind";
        var  url="http://10.10.2.242:8091/iserver/services/map-tianditu/rest/maps/矢量底图_经纬度";
       this.vectorLayer = new SuperMap.Layer.Vector("Vector Layer");
+//      this.themeLayer = new SuperMap.Layer.RankSymbol("RankSymbolLayer", "Circle");
+      this.themeLayer = new SuperMap.Layer.Range("ThemeLayer");
+
       this.typhoonFQLayer = new SuperMap.Layer.Vector("VectorFQLayer");
 //    this.vectorLayer1 = new SuperMap.Layer.Vector("Vector Layer1");
         this.vector = new SuperMap.Layer.Vector("Vector");
@@ -58,6 +64,8 @@
     data () {
       return {
         riskMapPolygon: riskMapPolygon,
+//        riskMapRainYJPolygon: riskMapRainYJPolygon,
+        features: riskMapRainYJPolygon,
         msg: '',
         imageUrls: '',
         canvasData: '',
@@ -65,6 +73,7 @@
         layer: '',
         vector: '',
         vectorLayer: '',
+        themeLayer:'',
         markerLayer: '',
         markerLayer1: '',
         pointArray:[
@@ -81,7 +90,8 @@
     methods: {
       addLayerSH(layer) {
 //        this.map.addLayers([this.layer,this.markerLayer])
-        this.map.addLayers([layer, this.vectorLayer, this.typhoonFQLayer, this.markerLayer, this.markerLayer1, this.vector])
+        this.map.addLayers([layer, this.vectorLayer, this.typhoonFQLayer, this.markerLayer,
+          this.markerLayer1, this.vector,this.themeLayer])
         // 显示地图范围
         this.map.setCenter(new SuperMap.LonLat(116, 39), 4)
       }

@@ -2,6 +2,7 @@
 export default {
   data (){
     return {
+      // themeLayer: ''
     }
   },
   methods: {
@@ -224,6 +225,7 @@ export default {
       }
 
       var  geometry =new SuperMap.Format.GeoJSON().read(this.riskMapPolygon,'Geometry')
+
       let style = {
         fillColor: "#ee9900",
         fillOpacity: 0.4,
@@ -318,10 +320,15 @@ export default {
     changeState() {
 //        $('.specialbox').css('height', '218px')
       var _mySelf = this
+      // let gridUrl = 'http://10.10.2.241:8091/iserver/services/map-riskcontrol_freeze/rest/maps/hail_n_days_annual_maxima'
+      let gridDtName = 'surf'
+      // let gridUrl = 'http://10.10.2.241:8091/iserver/services/map-riskcontrol_freeze/rest/maps/surf'
+      let gridUrl = 'http://10.10.2.241:8091/iserver/services/map-riskcontrol_freeze/rest/maps/surf_2'
+      // let gridUrl = 'http://10.10.2.241:8091/iserver/services/map-FXDT/rest/maps/rain_hazard_scale_1km@china'
 
       let data =  {'dtname': 'surf ', 'dsname': 'china', 'dangerValue': '',
         'dangerName': '暴雨综合风险', 'dangerEname': false, 'dangerSlider': 0,
-        'dangerUrl': 'http://10.10.2.241:8091/iserver/services/map-riskcontrol_freeze/rest/maps/surf', 'themeLayer': ''}
+        'dangerUrl': gridUrl, 'themeLayer': ''}
 
       // let data =  {'dtname': 'rain_hazard_scale_1km ', 'dsname': 'china', 'dangerValue': '',
       //   'dangerName': '暴雨综合风险', 'dangerEname': false, 'dangerSlider': 0,
@@ -345,6 +352,48 @@ export default {
       } else {
         this.map.removeLayer(data.themeLayer)
         data.dangerSlider = 0
+      }
+    },
+    // 添加面数据
+    addPolygon(){
+      var  geometry =new SuperMap.Format.GeoJSON().read(this.features.riskMapRainYJPolygon,'Geometry')
+      let style = {
+        fillColor: "#ee9900",
+        // fillColor: "red",
+        fillOpacity: 0.4,
+        // fillOpacity: 1,
+        strokeColor:"#ee9900",
+        strokeOpacity: 0.4,
+        strokeWidth: 1
+//               pointRadius:6
+      }
+      var feature = new SuperMap.Feature.Vector(geometry,null,style);
+      feature.attributes =this.features.attributes
+      // feature.attributes.SMID = 1
+      // feature.attributes.NAME= 'lqk'
+      // this.vectorLayer.addFeatures([feature]);
+      // this.vectorLayer.event.on("mousemove", this.evn);
+      // this.themeLayer = new SuperMap.Layer.RankSymbol("RankSymbolLayer", "Circle");
+      // this.themeLayer.setOpacity(0.8);
+      this.themeLayer.on("mousemove", this.showInfoWin);
+      this.themeLayer.addFeatures([feature]);
+    },
+    evn(e){
+      alert('111')
+    },
+    showInfoWin(e){
+      // alert('222')
+      // console.log('333')
+      // console.log(e)
+      if(e.target && e.target.refDataID){
+        // document.getElementById("infoBox").style.display = "block";
+        var fid = e.target.refDataID;
+        var fea = this.themeLayer.getFeatureById(fid);
+        if(fea){
+          console.log(fea)
+          // console.log(fea.attributes.SMID)
+          console.log(fea.attributes.identifier)
+        }
       }
     }
 
