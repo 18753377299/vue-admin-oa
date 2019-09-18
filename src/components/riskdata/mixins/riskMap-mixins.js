@@ -286,32 +286,46 @@ export default {
     },
     // 显示栅格数据
     showGridData(){
-            let data = {geometrys: geometrys }
-//    this.axios.post('/riskcontrol/file/returnGeometrist',data).then((response)=>{
-      this.axios.post('/riskcontrol/riskmap/testMapWarn?clearingFlag=1').then((response)=>{
+      this.axios.post('/MavenSSM/supermap/operateEarlyWarnArea').then((response)=>{
         console.log('you are right!')
-        console.log(response)
-        // 将后台传到前台的面数据添加到地图上
-        var  geometry =new SuperMap.Format.GeoJSON().read(response.data.result,'Geometry')
-        console.log(geometry)
-        let style = {
-          fillColor: "#ee9900",
-          // fillOpacity: 0.4,
-          fillOpacity: 1,
-          strokeColor:"#ee9900",
-          strokeOpacity: 0.4,
-          strokeWidth: 1
-//               pointRadius:6
-        }
-//      var style = {
-////        strokeColor:"#339933",
-//        strokeColor:"#ee9900",
-//        strokeOpacity:1,
-//        strokeWidth:3,
-//        pointRadius:6
-//      }
-        var feature = new SuperMap.Feature.Vector(geometry,null,style);
-        this.vectorLayer.addFeatures([feature]);
+        var responseData = response.data
+        var features = []
+        // if(response.status === 1){
+          for(let i in responseData){
+            if(i === 'data'){
+              console.log(responseData[i].length)
+              for(let j in responseData[i]){
+                // console.log(responseData[i])
+                // console.log(responseData[i][j].geometry)
+                // let style = {
+                //   fillColor: "#ee9900",
+                //   fillOpacity: 0.4,
+                //   strokeColor:"#ee9900",
+                //   strokeOpacity: 0.4,
+                //   strokeWidth: 1
+                // }
+                var  geometry =new SuperMap.Format.GeoJSON().read(responseData[i][j].geometry,'Geometry')
+                // var feature = new SuperMap.Feature.Vector(geometry,null,style)
+                // 每个灾害等级的颜色
+                let color = responseData[i][j].attributes.severity
+                let style = {
+                  // fillColor: "#ee9900",
+                  fillColor: color,
+                  fillOpacity: 0.4,
+                  strokeColor:"#ee9900",
+                  strokeOpacity: 0.4,
+                  strokeWidth: 1
+                }
+                var feature = new SuperMap.Feature.Vector(geometry,null,style);
+                feature.attributes =JSON.stringify(responseData[i][j].attributes)
+                features.push(feature)
+              }
+              this.vectorLayer.addFeatures(features);
+              // this.themeLayer.on("mousemove", this.showInfoWin);
+              console.log(features)
+              // this.themeLayer.addFeatures(features)
+            }
+          }
       }).catch((response)=>{
         console.log(response)
       })
@@ -382,9 +396,6 @@ export default {
       alert('111')
     },
     showInfoWin(e){
-      // alert('222')
-      // console.log('333')
-      // console.log(e)
       if(e.target && e.target.refDataID){
         // document.getElementById("infoBox").style.display = "block";
         var fid = e.target.refDataID;

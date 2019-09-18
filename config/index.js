@@ -30,7 +30,7 @@ module.exports = {
       // },
       '/MavenSSM': {
         // target: 'http://192.168.2.102:18020',
-        target: 'http://11.205.243.67:8031',
+        target: 'http://11.205.243.35:8041',
         changeOrigin: true,
       },
       // 通过配置nginx进行监听
@@ -42,7 +42,7 @@ module.exports = {
       // 直接访问路径
       '/riskcontrol': {
         // target: 'http://192.168.2.101:8017',
-        target: 'http://11.205.243.67:8022',
+        target: 'http://11.205.243.35:8022',
         changeOrigin: true
       },
     },
@@ -50,7 +50,7 @@ module.exports = {
     // Various Dev Server settings
     // host: 'localhost', // can be overwritten by process.env.HOST
     // host: '192.168.2.101',
-    host: '11.205.243.67',
+    host: '11.205.243.35',
     port: 8018, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
