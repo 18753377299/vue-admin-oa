@@ -58,6 +58,18 @@
       /**html渲染完成后，才触发*/
       this.msg = '123'
 //      console.log(this.$refs.first)
+
+      var callbacks = {
+        click : function(currentFeature) {
+          alert('111')
+          var point =currentFeature.style.config.attributes
+        }
+      };
+      var selectVectorLayer = new SuperMap.Control.SelectFeature(this.vectorLayer, {
+        callbacks : callbacks
+      });
+      this.map.addControl(selectVectorLayer);
+      selectVectorLayer.activate();
     },
     created () {
     },

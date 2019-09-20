@@ -286,6 +286,12 @@ export default {
     },
     // 显示栅格数据
     showGridData(){
+      var jsonString = {'pattern': 'name','type': 'fst','files': [{'file_name': 'Z_NWGD_C_BABJ_P_RFFC_SCMOC-ER24_201909210800.asc'}]}
+      var josn1 = JSON.stringify(jsonString)
+      // var json = JSON.parse(jsonString)
+      console.log(json)
+      console.log(josn1)
+
       this.axios.post('/MavenSSM/supermap/operateEarlyWarnArea').then((response)=>{
         console.log('you are right!')
         var responseData = response.data
@@ -321,9 +327,12 @@ export default {
                 features.push(feature)
               }
               this.vectorLayer.addFeatures(features);
+              // this.vectorLayer.on("mousemove", this.showInfoWin)
+              // this.vectorLayer.events.on({"mousemove": this.showInfoWin})
               // this.themeLayer.on("mousemove", this.showInfoWin);
               console.log(features)
               // this.themeLayer.addFeatures(features)
+
             }
           }
       }).catch((response)=>{
