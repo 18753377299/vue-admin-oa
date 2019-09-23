@@ -59,17 +59,16 @@
       this.msg = '123'
 //      console.log(this.$refs.first)
 
-      var callbacks = {
-        click : function(currentFeature) {
-          alert('111')
-          var point =currentFeature.style.config.attributes
-        }
-      };
-      var selectVectorLayer = new SuperMap.Control.SelectFeature(this.vectorLayer, {
-        callbacks : callbacks
-      });
-      this.map.addControl(selectVectorLayer);
-      selectVectorLayer.activate();
+//      var callbacks = {
+//        click : function(currentFeature) {
+//          alert('111')
+//        }
+//      };
+//      var selectVectorLayer = new SuperMap.Control.SelectFeature(this.vectorLayer, {
+//        callbacks : callbacks
+//      });
+//      this.map.addControl(selectVectorLayer);
+//      selectVectorLayer.activate();
     },
     created () {
     },
@@ -102,7 +101,7 @@
     methods: {
       addLayerSH(layer) {
 //        this.map.addLayers([this.layer,this.markerLayer])
-        this.map.addLayers([layer, this.vectorLayer, this.typhoonFQLayer, this.markerLayer,
+        this.map.addLayers([layer,this.vectorLayer, this.typhoonFQLayer, this.markerLayer,
           this.markerLayer1, this.vector,this.themeLayer])
         // 显示地图范围
         this.map.setCenter(new SuperMap.LonLat(116, 39), 4)

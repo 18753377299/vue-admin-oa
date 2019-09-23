@@ -3,6 +3,7 @@ export default {
   data (){
     return {
       // themeLayer: ''
+      infowin: ''
     }
   },
   methods: {
@@ -284,61 +285,6 @@ export default {
     radSH(d) {
       return d * Math.PI / 180.0;
     },
-    // 显示栅格数据
-    showGridData(){
-      var jsonString = {'pattern': 'name','type': 'fst','files': [{'file_name': 'Z_NWGD_C_BABJ_P_RFFC_SCMOC-ER24_201909210800.asc'}]}
-      var josn1 = JSON.stringify(jsonString)
-      // var json = JSON.parse(jsonString)
-      console.log(json)
-      console.log(josn1)
-
-      this.axios.post('/MavenSSM/supermap/operateEarlyWarnArea').then((response)=>{
-        console.log('you are right!')
-        var responseData = response.data
-        var features = []
-        // if(response.status === 1){
-          for(let i in responseData){
-            if(i === 'data'){
-              console.log(responseData[i].length)
-              for(let j in responseData[i]){
-                // console.log(responseData[i])
-                // console.log(responseData[i][j].geometry)
-                // let style = {
-                //   fillColor: "#ee9900",
-                //   fillOpacity: 0.4,
-                //   strokeColor:"#ee9900",
-                //   strokeOpacity: 0.4,
-                //   strokeWidth: 1
-                // }
-                var  geometry =new SuperMap.Format.GeoJSON().read(responseData[i][j].geometry,'Geometry')
-                // var feature = new SuperMap.Feature.Vector(geometry,null,style)
-                // 每个灾害等级的颜色
-                let color = responseData[i][j].attributes.severity
-                let style = {
-                  // fillColor: "#ee9900",
-                  fillColor: color,
-                  fillOpacity: 0.4,
-                  strokeColor:"#ee9900",
-                  strokeOpacity: 0.4,
-                  strokeWidth: 1
-                }
-                var feature = new SuperMap.Feature.Vector(geometry,null,style);
-                feature.attributes =JSON.stringify(responseData[i][j].attributes)
-                features.push(feature)
-              }
-              this.vectorLayer.addFeatures(features);
-              // this.vectorLayer.on("mousemove", this.showInfoWin)
-              // this.vectorLayer.events.on({"mousemove": this.showInfoWin})
-              // this.themeLayer.on("mousemove", this.showInfoWin);
-              console.log(features)
-              // this.themeLayer.addFeatures(features)
-
-            }
-          }
-      }).catch((response)=>{
-        console.log(response)
-      })
-    },
     // 切换专题图
     changeState() {
 //        $('.specialbox').css('height', '218px')
@@ -415,8 +361,105 @@ export default {
           console.log(fea.attributes.identifier)
         }
       }
-    }
+    },
+    // 显示栅格数据
+    showGridData(){
+      // var jsonString = {'pattern': 'name','type': 'fst','files': [{'file_name': 'Z_NWGD_C_BABJ_P_RFFC_SCMOC-ER24_201909210800.asc'}]}
+      // var josn1 = JSON.stringify(jsonString)
+      // // var json = JSON.parse(jsonString)
+      // console.log(json)
+      // console.log(josn1)
+      this.axios.post('/MavenSSM/supermap/operateEarlyWarnArea').then((response)=>{
+        console.log('you are right!')
+        var responseData = response.data
+        var features = []
+        // if(response.status === 1){
+        for(let i in responseData){
+          if(i === 'data'){
+            console.log(responseData[i].length)
+            for(let j in responseData[i]){
+              // console.log(responseData[i])
+              // console.log(responseData[i][j].geometry)
+              // let style = {
+              //   fillColor: "#ee9900",
+              //   fillOpacity: 0.4,
+              //   strokeColor:"#ee9900",
+              //   strokeOpacity: 0.4,
+              //   strokeWidth: 1
+              // }
+              var  geometry =new SuperMap.Format.GeoJSON().read(responseData[i][j].geometry,'Geometry')
+              // var feature = new SuperMap.Feature.Vector(geometry,null,style)
+              // 每个灾害等级的颜色
+              let color = responseData[i][j].attributes.severity
+              let style = {
+                // fillColor: "#ee9900",
+                fillColor: color,
+                fillOpacity: 0.4,
+                strokeColor:"#ee9900",
+                strokeOpacity: 0.4,
+                strokeWidth: 1
+              }
+              var feature = new SuperMap.Feature.Vector(geometry,null,style);
+              feature.attributes =JSON.stringify(responseData[i][j].attributes)
+              features.push(feature)
+            }
+            this.vectorLayer.addFeatures(features);
+            // this.vectorLayer.on("mousemove", this.showInfoWin)
+            // this.vectorLayer.events.on({"mousemove": this.showInfoWin})
+            // this.themeLayer.on("mousemove", this.showInfoWin);
+            console.log(features)
+            // this.themeLayer.addFeatures(features)
+            // 点击显示图层的信息
+            this.showVectorLayerInfo()
+          }
+        }
+      }).catch((response)=>{
+        console.log(response)
+      })
+    },
+    close(val){
+      if (val) {
+        try {
+          val.hide();
+          val.destroy();
+        } catch (e) {
+        }
+      }
+    },
+    showVectorLayerInfo (){
+      // 输出地图的总的层数
+      console.log(this.map.getNumLayers())
+      //输出地图当前层的索引
+      console.log(this.map.getLayerIndex())
+      // 将图层移到最上层
+      this.map.raiseLayer(this.vectorLayer, (this.map.getNumLayers()-this.map.getLayerIndex()))
 
+      var callbacks = {
+        click : function(currentFeature) {
+          console.log(currentFeature)
+          // 将json类型的字符串转换为对象的形式
+          var json = JSON.parse(currentFeature.attributes)
+          console.log(currentFeature.attributes)
+          console.log(json.description)
+          alert(json.description)
+          // this.close(this.infowin);
+          // var contextXMl = ''
+          // contextXMl="<div style='width:283px;height:120px;'><div class='smPopuptitlebox' style='width: 100%;background-color: #ffffff;color: #565656;'>地震详细信息</div><table><tr><td>"+
+          //   '地震发生地：'+currentFeature.attributes.description+"</td></tr><tr><td></td></tr></table></div>";
+          // var popup = new SuperMap.Popup.FramedCloud("popwin1",
+          //   new SuperMap.LonLat(currentFeature.attributes.x, currentFeature.attributes.y), null, contextXMl, null,
+          //   true, null, false);
+          // this.infowin = popup;
+          // this.map.addPopup(popup);
+        }
+      };
+      // 使用SelectFeature 必须移到最上层
+      var selectVectorLayer = new SuperMap.Control.SelectFeature(this.vectorLayer, {
+        callbacks : callbacks
+      });
+      this.map.addControl(selectVectorLayer);
+      selectVectorLayer.activate();
+    }
 
   }
 }
