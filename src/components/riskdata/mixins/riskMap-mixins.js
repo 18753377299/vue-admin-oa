@@ -325,7 +325,8 @@ export default {
     },
     // 添加面数据
     addPolygon(){
-      var  geometry =new SuperMap.Format.GeoJSON().read(this.features.riskMapRainYJPolygon,'Geometry')
+      // var  geometry =new SuperMap.Format.GeoJSON().read(this.features.riskMapRainYJPolygon,'Geometry')
+      var  geometry =new SuperMap.Format.GeoJSON().read(this.features.geometry,'Geometry')
       let style = {
         fillColor: "#ee9900",
         // fillColor: "red",

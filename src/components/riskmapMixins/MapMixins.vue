@@ -19,6 +19,7 @@
   // 面数据
   import riskMapPolygon from '@/components/riskdata/riskMapPolygon'
   import riskMapRainYJPolygon from '@/components/riskdata/riskMapRainYJPolygon'
+  import riskMapPolugonTest from '@/components/riskdata/riskMapPolugonTest'
   // 进行截图
   import riskMapPrintPicture from '@/components/riskdata/mixins/riskMapPrintPicture'
   export default {
@@ -76,7 +77,8 @@
       return {
         riskMapPolygon: riskMapPolygon,
 //        riskMapRainYJPolygon: riskMapRainYJPolygon,
-        features: riskMapRainYJPolygon,
+//        features: riskMapRainYJPolygon,
+        features: riskMapPolugonTest,
         msg: '',
         imageUrls: '',
         canvasData: '',
