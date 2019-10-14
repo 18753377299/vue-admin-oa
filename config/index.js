@@ -30,7 +30,7 @@ module.exports = {
       // },
       '/MavenSSM': {
         // target: 'http://192.168.2.102:18020',
-        target: 'http://11.205.243.35:8041',
+        target: 'http://11.205.243.35:8051',
         changeOrigin: true,
       },
       // 通过配置nginx进行监听

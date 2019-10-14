@@ -64,8 +64,15 @@ export default {
 //         var Info = marker.Data;
 //         console.log(_selfMarker);
           // ArrFQInfo 中十二个数据 表示  7/10/12 级风在不同的方位的风圈半径。
-          var Info= {"bj_7":"100-180公里",
-            "bj_10": "", "bj_12": "", "fs": 18,"lat": marker.lonlat.lat,"lon": marker.lonlat.lon, "sj": "2018-05-03 20:00","zxqy": 998,
+          var Info= {
+            "bj_7":"100-180公里",
+            "bj_10": "",
+            "bj_12": "",
+            "fs": 18,
+            "lat": marker.lonlat.lat,
+            "lon": marker.lonlat.lon,
+            "sj": "2018-05-03 20:00",
+            "zxqy": 998,
 //          "ArrFQInfo":[180, 100, 100, 180, 0, 0, 0, 0, 0, 0, 0, 0]
             "ArrFQInfo":[100, 100, 100, 100, 200, 200, 200, 200, 0, 0, 0, 0]
 //          "ArrFQInfo":[100, 100, 200, 200, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -172,8 +179,9 @@ export default {
         if (ArrFQInfo[i] != 0) {
           var origion = new SuperMap.Geometry.Point(Point.lon, Point.lat);
           var sides = 30;
-//         	半径
+//         	设置风圈的半径
           var bj = (parseFloat(ArrFQInfo[i]) * 1000) / dwjl;
+          // 绘制扇形风圈
           var cuvre = SuperMap.Geometry.Polygon.createRegularPolygonCurve(origion, bj, sides, 90, ArrColor[i][0]);
 //        var cuvre = SuperMap.Geometry.Polygon.createRegularPolygonCurve(origion, bj, sides, 90, ArrColor[i][0]);
 //        let data = {geometry: geometry, address:this.address, sumAmount:this.sumAmount,policyno:this.policyno,
@@ -370,7 +378,13 @@ export default {
       // // var json = JSON.parse(jsonString)
       // console.log(json)
       // console.log(josn1)
-      this.axios.post('/MavenSSM/supermap/operateEarlyWarnArea').then((response)=>{
+      this.axios.post('/MavenSSM/supermap/operateEarlyWarnArea',{
+        // headers: {
+        //   'Content-Type': 'application/json',//设置请求头请求格式为JSON
+        //   // 'jwtToken': this.token //设置token 其中K名要和后端协调好
+        //   'jwtToken': 'lqk' //设置token 其中K名要和后端协调好
+        // }
+      }).then((response)=>{
         console.log('you are right!')
         var responseData = response.data
         var features = []

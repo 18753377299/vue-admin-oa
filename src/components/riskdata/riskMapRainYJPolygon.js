@@ -1,6 +1,6 @@
 // 后台组织返回前台的面数据
 const features = {
-  "riskMapRainYJPolygon": {
+  "geometry": {
   "type": "Polygon",
   "coordinates": [
     [

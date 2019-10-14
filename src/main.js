@@ -3,11 +3,36 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// import axiosService from './axios/axios-api'
 
+import VueCookies from 'vue-cookies'
 // 全局整合axios
 import axios from 'axios'
+
+//http request 拦截器
+axios.interceptors.request.use(
+  config => {
+    // Indicator.open({
+    //   text: '加载中...',
+    //   spinnerType: 'fading-circle'
+    // })
+    config.headers.jwtToken = 'lqk22'
+    return config
+  },
+  err => {
+    // Indicator.close()
+    // Toast({
+    //   message: '加载超时',
+    //   position: 'middle',
+    //   duration: 3000
+    // })
+    return Promise.reject(err)
+  }
+)
+
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios,axios)
+
 //全局整合iview
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
