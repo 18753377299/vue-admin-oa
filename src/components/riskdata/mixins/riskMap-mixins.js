@@ -378,13 +378,7 @@ export default {
       // // var json = JSON.parse(jsonString)
       // console.log(json)
       // console.log(josn1)
-      this.axios.post('/MavenSSM/supermap/operateEarlyWarnArea',{
-        // headers: {
-        //   'Content-Type': 'application/json',//设置请求头请求格式为JSON
-        //   // 'jwtToken': this.token //设置token 其中K名要和后端协调好
-        //   'jwtToken': 'lqk' //设置token 其中K名要和后端协调好
-        // }
-      }).then((response)=>{
+      this.axios.post('/MavenSSM/supermap/operateEarlyWarnArea').then((response)=>{
         console.log('you are right!')
         var responseData = response.data
         var features = []
