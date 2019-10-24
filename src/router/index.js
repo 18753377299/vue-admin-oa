@@ -15,7 +15,7 @@ import mapfq from  '@/components/riskmap/MapFQ'
 import mapmix from  '@/components/riskmapMixins/MapMixins'
 import computedTest from  '@/components/myTest/ComputedTest'
 import WatchTest from  '@/components/myTest/WatchTest.vue'
-
+import  StoreTest from  '@/components/myTest/StoreTest'
 
 Vue.use(Router)
 
@@ -130,6 +130,12 @@ const routes =  [
     path: '/wat',
     name: 'wat',
     component: WatchTest,
+    children:[]
+  },
+  {
+    path: '/store',
+    name: 'store',
+    component: StoreTest,
     children:[]
   }
 
