@@ -21,11 +21,16 @@ const store = new Vuex.Store({
   // 如果需要修改store中的值唯一的方法就是提交mutation来修改
   mutations: {
      SET_COUNT:(state,payload) => {
-       state.count = payload
+       // state.count = payload
+       state.count = state.count +payload
+       // state.count = state.count +1
      }
   },
+  // commit提交mutations修改为使用dispatch来提交action
   actions: {
-
+      SET_COUNT_ACTION: (context,value) =>{
+        context.commit('SET_COUNT',value)
+      }
   }
 })
 

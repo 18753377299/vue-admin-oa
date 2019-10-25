@@ -37,6 +37,8 @@ export default {
   },
   // 校验数值是否超出限制，最大10位，单位为万元
   checkNumber: function (value) {
+    // value 是string类型，传入正数会出错
+    console.log(value)
     var numValue
     if (value && value !== null && value.indexOf('.') > -1) {
       numValue = value.split('.')

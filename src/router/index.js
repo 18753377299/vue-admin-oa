@@ -16,6 +16,7 @@ import mapmix from  '@/components/riskmapMixins/MapMixins'
 import computedTest from  '@/components/myTest/ComputedTest'
 import WatchTest from  '@/components/myTest/WatchTest.vue'
 import  StoreTest from  '@/components/myTest/StoreTest'
+import validateTest from  '@/components/myTest/ValidateTest'
 
 Vue.use(Router)
 
@@ -137,8 +138,13 @@ const routes =  [
     name: 'store',
     component: StoreTest,
     children:[]
-  }
-
+  },
+  {
+    path: '/validate',
+    name: 'validate',
+    component: validateTest,
+    children:[]
+  },
 
 
 ]

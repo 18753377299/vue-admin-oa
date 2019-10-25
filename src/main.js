@@ -32,8 +32,10 @@ import store from './store'
 // import './assets/styles/layout/layout.less' // 引入布局样式
 // import './assets/styles/base/base.less' // 全局变量
 // import './assets/styles/cover/cover.less' // 覆盖样式
-
-
+// 引入公共js begin
+import common from '../src/components/common/js/common.js'
+Vue.prototype.common = common
+// 引入公共js end
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
