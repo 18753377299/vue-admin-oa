@@ -242,14 +242,14 @@
           this.modal_loading = true
           setTimeout(() => {
             if (valid) {
-              let dd = {username: this.formValidate.name, password: this.formValidate.password}
-              this.axios.post('/riskcontrol/login-api/getInfoLogin', dd).then(response => {
-                let status = response.data.statusCode
+              let dd = {userCode: this.formValidate.name, passWord: this.formValidate.password}
+              this.axios.post('/riskcontrol/login/userLogin', dd).then(response => {
+                let status = response.data.status
 //                let userInfo = response.userInfo
                 let message = response.data.message
-                if (status === '1') {
-                  let token = response.data.parameterMap.token
-                    Cookies.set('jwtToken', token)
+                if (status === 1) {
+                  let token = response.data.userInfo.jwtToken
+                  Cookies.set('jwtToken', token)
 //                  this.$store.commit('SET_USERINFO', userInfo)
                   this.$Message.success('登录成功!')
                   this.$router.push('/')

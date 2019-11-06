@@ -4,7 +4,7 @@
       <Sider :collapsible="true" :collapsed-width="78" v-model="isCollapsed">
         <Menu  theme="dark" width="auto" :accordion="true" :active-name="1" :class="menuitemClasses" >
           <div v-for="(item,index) in menuList">
-            <Submenu name="index"  v-if="item.children&& !item.hidden">
+            <Submenu name="index"  v-if="item.children&& !item.fixed">
               <template slot="title">
                 <Icon type="ios-filing" />
                 {{item.name}}

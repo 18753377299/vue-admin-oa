@@ -33,16 +33,13 @@ module.exports = {
         target: 'http://11.205.243.35:8051',
         changeOrigin: true,
       },
-      // 通过配置nginx进行监听
-      // '/riskcontrol': {
-      //   // target: 'http://192.168.2.101:8017',
-      //   target: 'http://11.205.243.67:8017',
-      //   changeOrigin: true
-      // },
       // 直接访问路径
       '/riskcontrol': {
+        // 通过配置nginx进行监听
         // target: 'http://192.168.2.101:8017',
-        target: 'http://11.205.243.35:8022',
+        target: 'http://11.205.243.35:8017',
+        // target: 'http://11.205.243.35:8022',
+        // target: 'http://11.205.243.35:8051',
         changeOrigin: true
       },
     },

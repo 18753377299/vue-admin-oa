@@ -3,13 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Cookies from 'js-cookie'
 
 // 全局整合axios  begin
 import axios from 'axios'
 //http request 拦截器
 axios.interceptors.request.use(
   config => {
-    config.headers.jwtToken = 'lqk22'
+    let jwtToken = Cookies.get('jwtToken')
+    config.headers.jwtToken = jwtToken
     return config
   },
   err => {

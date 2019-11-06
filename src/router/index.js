@@ -1,153 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import routes from './routes'
 import Cookies from 'js-cookie'
-import HelloWorld from '@/components/HelloWorld'
-import Home from '@/components/Main.vue'
-import LeaveSearch from '@/components/leave/LeaveSearch.vue'
-import RiskInfoClaimQuery from '@/components/riskinfo/RiskInfoClaimQuery.vue'
-import RiskCheckMainQuery from '@/components/riskcheck/RiskCheckMainQuery.vue'
-import Login from '@/components/common/Login'
-import map from '@/components/riskmap/map'
-import maptf from '@/components/riskmap/MapTF'
-import mapcanvas from  '@/components/riskmap/MapCanvas'
-import mappt from  '@/components/riskmap/mapPointTogether'
-import mapfq from  '@/components/riskmap/MapFQ'
-import mapmix from  '@/components/riskmapMixins/MapMixins'
-import computedTest from  '@/components/myTest/ComputedTest'
-import WatchTest from  '@/components/myTest/WatchTest.vue'
-import  StoreTest from  '@/components/myTest/StoreTest'
-import validateTest from  '@/components/myTest/ValidateTest'
 
 Vue.use(Router)
-
-const routes =  [
-  {
-    path: '/',
-    name: 'Main',
-    component: Home,
-    children: [
-      // {
-      //   path: '/riskinfo',
-      //   name: 'LeaveSearch',
-      //   component: LeaveSearch,
-      //   icon: 'icon-wujiaoxing',
-      //   level: 1,
-      //   meta: {
-      //     requiresAuth: true, // 是否需要登录
-      //     search: false // 是否可搜索
-      //   }
-      // },
-      {
-        path: '/RiskInfoClaimQuery',
-        name: '典型案例分析',
-        component: RiskInfoClaimQuery,
-        icon: 'icon-wujiaoxing',
-        level: 1,
-        meta: {
-          requiresAuth: true, // 是否需要登录
-          search: false // 是否可搜索
-        },
-        children: [
-          {
-            path: '/riskinfo',
-            name: 'LeaveSearch',
-            component: LeaveSearch
-          },
-          {
-            path: '/RiskCheckMainQuery',
-            name: '风控巡检查询',
-            component: RiskCheckMainQuery,
-            icon: 'icon-wujiaoxing',
-            level: 1,
-            meta: {
-              requiresAuth: true, // 是否需要登录
-              search: false // 是否可搜索
-            }
-          }
-        ]
-      },
-      // {
-      //   path: '/RiskCheckMainQuery',
-      //   name: '风控巡检查询',
-      //   component: RiskCheckMainQuery,
-      //   icon: 'icon-wujiaoxing',
-      //   level: 1,
-      //   meta: {
-      //     requiresAuth: true, // 是否需要登录
-      //     search: false // 是否可搜索
-      //   }
-      // }
-    ]
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login,
-    children:[]
-  },
-  {
-    path: '/map',
-      name: 'map',
-    component: map,
-    children:[]
-  },
-  {
-    path: '/maptf',
-    name: 'maptf',
-    component: maptf,
-    children:[]
-  },
-  {
-    path: '/mapcan',
-    name: 'mapcan',
-    component: mapcanvas,
-    children:[]
-  },
-  {
-    path: '/mappt',
-      name: 'mappt',
-    component: mappt,
-    children:[]
-  },
-  {
-    path: '/mapfq',
-    name: 'mapfq',
-    component: mapfq,
-    children:[]
-  },
-  {
-    path: '/mapmix',
-    name: 'mapmix',
-    component: mapmix,
-    children:[]
-  },
-  {
-    path: '/comp',
-    name: 'comp',
-    component: computedTest,
-    children:[]
-  },
-  {
-    path: '/wat',
-    name: 'wat',
-    component: WatchTest,
-    children:[]
-  },
-  {
-    path: '/store',
-    name: 'store',
-    component: StoreTest,
-    children:[]
-  },
-  {
-    path: '/validate',
-    name: 'validate',
-    component: validateTest,
-    children:[]
-  },
-
-
-]
 
 const router = new Router({
   // (缩写) 相当于 routes: routes
@@ -165,22 +21,22 @@ const router = new Router({
  * 则导航的状态就是 confirmed （确认的）；否则为false，终止导航。
  * */
 
-// router.beforeEach((to, from, next) => {
-//   let token = Cookies.get('jwtToken')
-//   if(token){
-//     console.log('token')
-//     next();
-//   }else {
-//     console.log('token-next')
-//     if(to.path === '/login'){
-//       next()
-//     }else {
-//       next({
-//         path: '/login'
-//       })
-//     }
-//   }
-//
-// })
+router.beforeEach((to, from, next) => {
+  let token = Cookies.get('jwtToken')
+  // 如果有token并且不是登录路径，则跳过
+  if(token && to.path.indexOf('/login') === -1){
+    console.log('token')
+    next();
+  }else {
+     //进行登录
+    if(to.path.indexOf('/login') !== -1){
+      console.log('login')
+      next();
+    }else {
+      next({ path: '/login' })
+    }
+  }
+
+})
 
 export default router

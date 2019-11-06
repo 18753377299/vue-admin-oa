@@ -24,6 +24,7 @@ module.exports = {
   context: path.resolve(__dirname, '../'),
   // 页面入口文件配置
   entry: {
+    // 超图组件是否使用
     // vendor: ['./src/assets/js/SuperMap.Include','./src/assets/js/SuperMap_Basic-8.1.1-15523',
     //   './src/assets/js/SuperMap_Cloud-8.1.1-15523','./src/assets/js/SuperMap_IServer-8.1.1-15523',
     //   './src/assets/js/SuperMap_OGC-8.1.1-15523', './src/assets/js/SuperMap_Visualization-8.1.1-15523',

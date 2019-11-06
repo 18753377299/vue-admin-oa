@@ -2,7 +2,31 @@
   <Card>
     <div>
       <div>
-        <Input type="text" v-model="name" ></Input>  <Button type="primary" @click="clickEvent">set</Button>
+        <Form ref="riskReportFireDangerProListC" :model="riskReportFireDangerList"  :label-width="140" >
+          <Input type="text" v-model="name" ></Input>  <Button type="primary" @click="clickEvent">set</Button>
+          <Row>
+            <Col span="12">
+              <FormItem label="消防水源供应" prop="fireWaterSupply">
+                <CheckboxGroup v-model="riskReportFireDangerList.fireWaterSupply" >
+                  <Checkbox label="A" :disabled=browseFlag><span>市政水源</span></Checkbox>
+                  <Checkbox label="B" :disabled=browseFlag><span>消防水池且水位充足</span></Checkbox>
+                  <Checkbox label="C" :disabled=browseFlag><span>天然水源</span></Checkbox>
+                  <Checkbox label="D" :disabled=browseFlag><span>消防水池且水位不充足</span></Checkbox>
+                  <Checkbox label="E" :disabled=browseFlag><span>无</span></Checkbox>
+                </CheckboxGroup>
+              </FormItem>
+            </Col>
+            <Col span="12">
+            <FormItem label="风控建议" prop="fireWaterSupply_2_1">
+              <RadioGroup v-model="fireWaterSupply_2_1">
+                <Radio label="A" >谨慎承保</Radio>
+                <Radio label="B" >提高条件承保</Radio>
+                <Radio label="C" >竞争性承保</Radio>
+              </RadioGroup>
+            </FormItem>
+            </Col>
+          </Row>
+        </Form>
       </div>
       <div>
         <br/>
@@ -31,6 +55,10 @@
   export default {
     data () {
       return {
+        riskReportFireDangerList:{
+          fireWaterSupply: []
+        },
+        browseFlag: false,
         firstName: '',
         lastName: '',
         name: '',
@@ -44,6 +72,9 @@
     },
 //    computed里面的属性可以不用在data里面声明，就可以进行双向绑定
     computed: {
+      fireWaterSupply_2_1(){
+        return 'A'
+      },
       fullName: {
         get: function () {
           return this.firstName+ " "+this.lastName
@@ -68,6 +99,11 @@
     methods: {
       clickEvent(){
         this.fullName = this.name
+        this.axios.put('/MavenSSM/into/test').then((response)=>{
+          console.log('you are test!')
+        }).catch((response)=>{
+          console.log(response)
+        })
       },
       methodTest() {
         return this.message + '现在我用的是methods'
