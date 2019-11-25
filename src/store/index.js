@@ -1,5 +1,6 @@
 import Vue from 'vue' // 引入vue
 import Vuex from 'vuex' // 引入vuex
+
 // 使用Vuex
 Vue.use(Vuex)
 
@@ -7,7 +8,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   // vuex中的数据源，我们需要保存的数据就保存在这里，可以在页面通过 this.$store.state来获取我们定义的数据
    state: {
-      count: 1
+      count: 1,
+     userInfo: ''
    },
   // Getter相当于vue中的computed计算属性，getter 的返回值会根据它的依赖被缓存起来，
   // 且只有当它的依赖值发生了改变才会被重新计算，这里我们可以通过定义vuex的Getter
@@ -24,7 +26,11 @@ const store = new Vuex.Store({
        // state.count = payload
        state.count = state.count +payload
        // state.count = state.count +1
-     }
+     },
+    SET_USERINFO:(state)=>{
+      // state
+    }
+
   },
   // commit提交mutations修改为使用dispatch来提交action
   actions: {
