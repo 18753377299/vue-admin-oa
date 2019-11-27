@@ -20,7 +20,6 @@ const router = new Router({
  * next:Function,进行管道中的一个钩子，如果执行完了，
  * 则导航的状态就是 confirmed （确认的）；否则为false，终止导航。
  * */
-
 router.beforeEach((to, from, next) => {
   let token = Cookies.get('jwtToken')
   // 如果有token并且不是登录路径，则跳过

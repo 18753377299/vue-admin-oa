@@ -15,7 +15,7 @@
       <!-- 左侧导航 -->
       <nav-bar style="padding-bottom: 80px">
         <!--:theme="theme" :accordion="true" @on-select="selectFn" :active-name="$route.path"-->
-        <Menu width="220" >
+        <Menu width="220" :accordion="true">
           <div v-for="(item,index) in menu " :key="index">
             <Submenu :name="index" v-if="item.children && item.children.length>0 && !item.hidden">
               <template slot="title">

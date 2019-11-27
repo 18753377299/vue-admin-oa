@@ -1,5 +1,6 @@
 import HelloWorld from '@/components/HelloWorld'
 import Home from '@/components/Main.vue'
+// import Home from '@/components/layout/Home.vue'
 import LeaveSearch from '@/components/leave/LeaveSearch.vue'
 import RiskInfoClaimQuery from '@/components/riskinfo/RiskInfoClaimQuery.vue'
 import RiskCheckMainQuery from '@/components/riskcheck/RiskCheckMainQuery.vue'

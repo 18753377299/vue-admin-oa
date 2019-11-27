@@ -2,7 +2,7 @@
   <div class="layout">
     <Layout :style="{minHeight: '100vh'}">
       <Sider :collapsible="true" :collapsed-width="78" v-model="isCollapsed">
-        <Menu  theme="dark" width="auto" :accordion="true" :active-name="1" :class="menuitemClasses" >
+        <Menu  theme="dark" width="auto" :accordion="false" :active-name="1" :class="menuitemClasses" >
           <div v-for="(item,index) in menuList">
             <Submenu name="index"  v-if="item.children&& !item.fixed">
               <template slot="title">
@@ -18,7 +18,20 @@
         </Menu>
       </Sider>
       <Layout>
-        <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}"></Header>
+        <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}">
+          <div style="float: right">
+            <Dropdown class="userBox" slot='right'>
+              <!--<a href="javascript:void(0)">-->
+                <!--Artiely-->
+                <!--<Icon type="arrow-down-b"></Icon>-->
+              <!--</a>-->
+              <Dropdown-menu>
+                <Dropdown-item @click.native="modalUser=true">个人信息</Dropdown-item>
+                <Dropdown-item @click.native="logout">退出登录</Dropdown-item>
+              </Dropdown-menu>
+            </Dropdown>
+          </div>
+        </Header>
         <Content :style="{padding: '0 16px 16px'}">
           <Breadcrumb :style="{margin: '16px 0'}">
             <BreadcrumbItem>Home</BreadcrumbItem>
@@ -38,6 +51,7 @@
 </template>
 <script>
   import menuList from '@/router/menu'
+  import  Cookies from 'js-cookie'
   export default {
     data () {
       return {
@@ -56,10 +70,13 @@
     },
     created () {
         console.log('created')
-//        console.log(menuList)
     },
     methods: {
-
+      //退出登录
+      logout(){
+        Cookies.remove("jwtToken")
+        this.$router.push('/login')
+      }
     }
   }
 </script>
