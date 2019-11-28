@@ -251,7 +251,8 @@
                 if (status === 1) {
                   let token = response.data.data.jwtToken
                   Cookies.set('jwtToken', token)
-//                  this.$store.commit('SET_USERINFO', response.data.data)
+                  this.$store.commit('SET_USERINFO', response.data.data)
+                  const userInfo =this.$store.getters.getUserInfo
                   this.$Message.success('登录成功!')
                   this.$router.push('/')
                 } else {

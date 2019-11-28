@@ -15,22 +15,22 @@ const menu = [
     level: 0,
     fixed: false,
     children: [
-      {
-        path: '/chart',
-        name: 'chart',
-        icon: 'icon-dynamic_fill',
-        level: 1,
-        children: [],
-        fixed: false
-      },
-      {
-        level: 1,
-        path: '/filter',
-        name: 'filter',
-        children: [],
-        fixed: false,
-        icon: 'icon-emoji_fill'
-      }
+      // {
+      //   path: '/chart',
+      //   name: 'chart',
+      //   icon: 'icon-dynamic_fill',
+      //   level: 1,
+      //   children: [],
+      //   fixed: false
+      // },
+      // {
+      //   level: 1,
+      //   path: '/filter',
+      //   name: 'filter',
+      //   children: [],
+      //   fixed: false,
+      //   icon: 'icon-emoji_fill'
+      // }
     ]
   },
   {
@@ -42,7 +42,7 @@ const menu = [
     children: [
       {
         path: '/riskinfo',
-        name: 'HelloWorld',
+        name: 'LeaveSearch',
         icon: 'icon-dynamic_fill',
         level: 1,
         children: [],
@@ -55,14 +55,6 @@ const menu = [
         level: 1,
         children: [],
         fixed: false
-      },
-      {
-        level: 1,
-        path: '/filter',
-        name: 'filter',
-        children: [],
-        fixed: false,
-        icon: 'icon-emoji_fill'
       }
     ]
   },

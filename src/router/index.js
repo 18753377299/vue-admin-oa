@@ -22,10 +22,11 @@ const router = new Router({
  * */
 router.beforeEach((to, from, next) => {
   let token = Cookies.get('jwtToken')
-  // 如果有token并且不是登录路径，则跳过
+  // 如果有token并且不是登录路径，则跳过,否则都跳到登录页面，需要增加一个token过期的操作
   if(token && to.path.indexOf('/login') === -1){
     console.log('token')
     next();
+    // 如果token过期，需要重新进行登录，
   }else {
      //进行登录
     if(to.path.indexOf('/login') !== -1){

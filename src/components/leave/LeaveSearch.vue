@@ -4,32 +4,15 @@
       <Card>
         <div class="title">
           <Icon type="search"></Icon>
-          典型案例分析2222
+          请假查询
         </div>
-        <div >
+        <div>
           <!--v-show="selectShowFlag"-->
-          <Form ref="riskInsMainVo"  label-position="right" class="form1" :label-width="140">
-            <!--:rules="ruleValidate"-->
+          <Form ref="leaveMainVo" :model="leaveMainVo" label-position="right" class="form1"  :rules="ruleValidate" :label-width="140">
             <Row>
               <Col span="8">
-              <FormItem label="投保险类：" prop="classCode">
-                <Select type="text">
-                  <Option value="" selected >请选择</Option>
-                  <!--<Option v-for="classC in classCodeList" :value="classC.code" :key="classC.code" >{{classC.code}}-&#45;&#45;{{classC.name}}</Option>-->
-                </Select>
-              </FormItem>
-              </Col>
-              <Col span="8">
-              <FormItem label="投保险种：" prop="riskCode">
-                <Select type="text" >
-                  <Option value="" selected >请选择</Option>
-                  <!--<Option v-for="riskC in riskCodeList" :value="riskC.code" :key="riskC.code" >{{riskC.code}}-&#45;&#45;{{riskC.name}}</Option>-->
-                </Select>
-              </FormItem>
-              </Col>
-              <Col span="8">
-              <FormItem label="被保险人：" prop="insuredName">
-                <Input  placeholder="请输入..." style="width: 100%;"/>
+              <FormItem label="人员编号：" prop="classCode">
+                <Input v-model="leaveMainVo.personNo" placeholder="请输入..." style="width: 100%;"/>
               </FormItem>
               </Col>
             </Row>
@@ -96,8 +79,12 @@
   export default{
     data (){
       return {
-
+        leaveMainVo:{
+          personNo: ''
+        },
+        ruleValidate:{}
       }
+
     },
     created(){
 
