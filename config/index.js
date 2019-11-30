@@ -31,7 +31,7 @@ module.exports = {
       '/MavenSSM': {
         // target: 'http://192.168.2.102:18020',
         // target: 'http://11.205.243.35:8051',
-        target: 'http://localhost:8051',
+        target: 'http://localhost:8050',
         changeOrigin: true,
       },
       // 直接访问路径

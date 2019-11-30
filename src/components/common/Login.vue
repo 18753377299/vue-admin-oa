@@ -243,7 +243,7 @@
           setTimeout(() => {
             if (valid) {
               let dd = {userCode: this.formValidate.name, passWord: this.formValidate.password}
-              this.axios.post('/riskcontrol/login/userLogin', dd).then(response => {
+              this.axios.post('/MavenSSM/login/userLogin', dd).then(response => {
                 console.log(response)
                 let status = response.data.status
 //                let userInfo = response.userInfo

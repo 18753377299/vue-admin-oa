@@ -25,6 +25,12 @@ router.beforeEach((to, from, next) => {
   // 如果有token并且不是登录路径，则跳过,否则都跳到登录页面，需要增加一个token过期的操作
   if(token && to.path.indexOf('/login') === -1){
     console.log('token')
+    // this.axios.post('/MavenSSM/login/getUserInfo', {jwtToken: token}).then(response => {
+    //     console.log(response)
+    // }).catch(response => {
+    //   this.modal_loading = false
+    //   this.formValidate.errorMeg = '登陆异常，请联系管理员'
+    // })
     next();
     // 如果token过期，需要重新进行登录，
   }else {

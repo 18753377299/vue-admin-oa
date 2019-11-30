@@ -16,6 +16,22 @@
               </FormItem>
               </Col>
             </Row>
+
+            <Row v-for="(item,index) in list" :key="'dL_A' + index">
+              <Col span="8">
+                <FormItem :label="item.value" :prop="item.key">
+                  <Input v-model="item.key" placeholder="请输入..." style="width: 100%;"/>
+                </FormItem>
+              </Col>
+            </Row>
+            <Row v-for="(item,index) in list" :key="'dL_B' +index">
+              <Col span="8">
+                <FormItem :label="item.value" :prop="item.key">
+                  <Input v-model="item.key" placeholder="请输入..." style="width: 100%;"/>
+                </FormItem>
+              </Col>
+            </Row>
+
             <div :style="{textAlign:center}">
               <Button type="primary" icon="ios-search" @click="query()">查询</Button>
               <Button type="dashed" icon="refresh" >重置</Button>
@@ -25,7 +41,7 @@
         <div class="hideButton">
           <!--@click='changeselect'-->
           <div class="iconBox" >
-            <i :class="showicon" aria-hidden="true"></i>
+            <i aria-hidden="true"></i>
           </div>
         </div>
       </Card>
@@ -79,19 +95,24 @@
   export default{
     data (){
       return {
+        center: 'center',
         leaveMainVo:{
           personNo: ''
         },
+        list:[
+          {key:'1',value: 'aaa'},
+          {key:'2',value: 'bbb'},
+          {key:'3',value: 'cccc'}
+        ],
         ruleValidate:{}
       }
-
     },
     created(){
 
     },
     methods:{
       query(){
-        this.axios.get('/riskcontrol/riskinfo-api/queryRiskInfoClaim').then((response)=>{
+        this.axios.get('/MavenSSM/leave/test').then((response)=>{
           console.log('you are right!')
 //          this.newsList=response.data.data;
         }).catch((response)=>{
