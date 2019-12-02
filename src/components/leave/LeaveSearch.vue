@@ -16,21 +16,20 @@
               </FormItem>
               </Col>
             </Row>
-
-            <Row v-for="(item,index) in list" :key="'dL_A' + index">
-              <Col span="8">
-                <FormItem :label="item.value" :prop="item.key">
-                  <Input v-model="item.key" placeholder="请输入..." style="width: 100%;"/>
-                </FormItem>
-              </Col>
-            </Row>
-            <Row v-for="(item,index) in list" :key="'dL_B' +index">
-              <Col span="8">
-                <FormItem :label="item.value" :prop="item.key">
-                  <Input v-model="item.key" placeholder="请输入..." style="width: 100%;"/>
-                </FormItem>
-              </Col>
-            </Row>
+            <!--<Row v-for="(item,index) in list" :key="'dL_A' + index">-->
+              <!--<Col span="8">-->
+                <!--<FormItem :label="item.value" :prop="item.key">-->
+                  <!--<Input v-model="item.key" placeholder="请输入..." style="width: 100%;"/>-->
+                <!--</FormItem>-->
+              <!--</Col>-->
+            <!--</Row>-->
+            <!--<Row v-for="(item,index) in list" :key="'dL_B' +index">-->
+              <!--<Col span="8">-->
+                <!--<FormItem :label="item.value" :prop="item.key">-->
+                  <!--<Input v-model="item.key" placeholder="请输入..." style="width: 100%;"/>-->
+                <!--</FormItem>-->
+              <!--</Col>-->
+            <!--</Row>-->
 
             <div :style="{textAlign:center}">
               <Button type="primary" icon="ios-search" @click="query()">查询</Button>

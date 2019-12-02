@@ -259,13 +259,16 @@
                   this.modal_loading = false
                   parse(message)
                   this.formValidate.errorMeg = message
+                  this.$router.push('/login')
                 }
               }).catch(response => {
                 this.modal_loading = false
                 this.formValidate.errorMeg = '登陆异常，请联系管理员'
+                this.$router.push('/login')
               })
             } else {
               this.modal_loading = false
+              this.$router.push('/login')
             }
           }, 2000)
         })
