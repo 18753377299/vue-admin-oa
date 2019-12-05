@@ -15,7 +15,7 @@ import computedTest from  '@/components/myTest/ComputedTest'
 import WatchTest from  '@/components/myTest/WatchTest.vue'
 import  StoreTest from  '@/components/myTest/StoreTest'
 import validateTest from  '@/components/myTest/ValidateTest'
-
+import cycleValidate from '@/components/leave/CycleValidate'
 const routes =  [
   {
     path: '/',
@@ -110,6 +110,12 @@ const routes =  [
     path: '/validate',
     name: 'validate',
     component: validateTest,
+    children:[]
+  },
+  {
+    path: '/cycleValidate',
+    name: 'cycleValidate',
+    component: cycleValidate,
     children:[]
   }
 ]

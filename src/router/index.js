@@ -49,14 +49,15 @@ router.beforeEach((to, from, next) => {
     })
     // 如果token过期，需要重新进行登录，
   }else {
+    next();
      //进行登录
-    if(to.path.indexOf('/login') !== -1){
-      console.log('login')
-      // next()不会再次调用router.beforeEach(),next('login')会再次调用router.beforeEach()
-      next();
-    }else {
-      next({ path: '/login' })
-    }
+    // if(to.path.indexOf('/login') !== -1){
+    //   console.log('login')
+    //   // next()不会再次调用router.beforeEach(),next('login')会再次调用router.beforeEach()
+    //   next();
+    // }else {
+    //   next({ path: '/login' })
+    // }
   }
 
 })

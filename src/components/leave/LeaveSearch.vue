@@ -16,13 +16,18 @@
               </FormItem>
               </Col>
             </Row>
-            <!--<Row v-for="(item,index) in list" :key="'dL_A' + index">-->
-              <!--<Col span="8">-->
-                <!--<FormItem :label="item.value" :prop="item.key">-->
-                  <!--<Input v-model="item.key" placeholder="请输入..." style="width: 100%;"/>-->
-                <!--</FormItem>-->
-              <!--</Col>-->
-            <!--</Row>-->
+            <Row v-for="(item,index) in list" :key="'dL_A' + index">
+              <Col span="8">
+                <FormItem :label="item.value" :prop="item.key">
+                  <Input v-model="item.key" placeholder="请输入..." style="width: 100%;"/>
+                </FormItem>
+              </Col>
+              <Col span="8">
+              <FormItem  prop="desc">
+                <Input v-model="item.desc" placeholder="请输入..." style="width: 100%;"/>
+              </FormItem>
+              </Col>
+            </Row>
             <!--<Row v-for="(item,index) in list" :key="'dL_B' +index">-->
               <!--<Col span="8">-->
                 <!--<FormItem :label="item.value" :prop="item.key">-->
@@ -99,9 +104,9 @@
           personNo: ''
         },
         list:[
-          {key:'1',value: 'aaa'},
-          {key:'2',value: 'bbb'},
-          {key:'3',value: 'cccc'}
+          {key:'1',value: 'aaa',desc: ''},
+          {key:'2',value: 'bbb',desc: ''},
+          {key:'3',value: 'cccc',desc: ''}
         ],
         ruleValidate:{}
       }
@@ -111,12 +116,20 @@
     },
     methods:{
       query(){
-        this.axios.get('/MavenSSM/leave/test').then((response)=>{
-          console.log('you are right!')
-//          this.newsList=response.data.data;
-        }).catch((response)=>{
-          console.log(response);
-        })
+        for (var i=0;i<list.length;i++){
+          if(list[i].value === 'bbb'){
+
+          }
+        }
+//        this.$refs[formName].validate((valid) => {
+//
+//        })
+//        this.axios.get('/MavenSSM/leave/test').then((response)=>{
+//          console.log('you are right!')
+////          this.newsList=response.data.data;
+//        }).catch((response)=>{
+//          console.log(response);
+//        })
       }
     }
   }
