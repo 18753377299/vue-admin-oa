@@ -82,6 +82,7 @@
             <div :style="{textAlign:center}">
               <Button type="primary" icon="ios-search" @click="query()">查询</Button>
               <Button type="dashed" icon="refresh" >重置</Button>
+              <Button type="dashed" icon="refresh" @click="loadData">加载</Button>
             </div>
           </Form>
         </div>
@@ -128,6 +129,7 @@
   </div>
 </template>
 <script>
+  import iView from 'iview'
   export default{
     data (){
       const validateClaimName = (rule, value, callback) => {
@@ -322,6 +324,37 @@
 
     },
     methods:{
+      loadData(){
+        iView.Spin.show({
+          render: (h) => {
+            if (false) {
+              return h('div', [
+                h('Icon', {
+                  'class': {'demo-spin-icon-load': true},
+                  props: {
+                    type: 'load-c',
+                    size: 36
+                  }
+                }),
+                h('div', 'Loading')
+              ])
+            } else {
+              return h('div', [
+                h('img', {
+                  attrs: {
+                    src: require('@/assets/svg/loading.svg')
+                  }
+                })
+              ])
+            }
+          }
+        })
+        let _self = this
+         setTimeout(() => {
+           iView.Spin.hide()
+         }, 1000)
+//        iView.Spin.hide()
+      },
       changeRiskName() {
         console.log(this.riskInfoClaimVo)
         if(this.riskInfoClaimVo.riskNames!==null&&this.riskInfoClaimVo.riskNames!==''){

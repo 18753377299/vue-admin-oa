@@ -117,6 +117,12 @@ const routes =  [
     name: 'cycleValidate',
     component: cycleValidate,
     children:[]
+  },
+  {
+    path: '/hello',
+    name: 'HelloWorld',
+    component: HelloWorld,
+    children:[]
   }
 ]
 

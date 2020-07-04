@@ -11,7 +11,7 @@ export default {
     this.map = new SuperMap.Map("map", {
         controls: [
             new SuperMap.Control.Navigation(),
-            new SuperMap.Control.ScaleLine(),
+//            new SuperMap.Control.ScaleLine(),
             new SuperMap.Control.Zoom()]
     })
     this.map.addControl(new SuperMap.Control.MousePosition())
@@ -34,6 +34,7 @@ export default {
         this.map.addLayers([layer,this.markerLayer])
         // 显示地图范围
         this.map.setCenter(new SuperMap.LonLat(116, 39), 1)
+//      this.map.setCenter(new SuperMap.LonLat(117.162034,32.479946), 1)
     },
     addData(){
       this.markerLayer.removeMarker(this.marker);
@@ -41,7 +42,7 @@ export default {
       let size = new SuperMap.Size(44, 33)
       let offset = new SuperMap.Pixel(-(size.w / 2), -size.h)
       let icon = new SuperMap.Icon(require("@/assets/img/map/typhoon/1.png"), size, offset)
-      this.marker = new SuperMap.Marker(new SuperMap.LonLat(116, 39), icon)
+      this.marker = new SuperMap.Marker(new SuperMap.LonLat(117.162034,32.479946), icon)
       /*水淹单击弹窗事件*/
       this.marker.events.on({
         "click": mouseClickEvent,
